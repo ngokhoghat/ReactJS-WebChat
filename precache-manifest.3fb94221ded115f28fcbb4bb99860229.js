@@ -1,19 +1,19 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "a2e808b83c9b452eac917941a86083b2",
+    "revision": "ea825457a8974814ea40635d64c68c27",
     "url": "/ReactJS-WebChat/index.html"
   },
   {
-    "revision": "1d1ccf102a21069b6bec",
+    "revision": "7c1b25cab6ebf584ce71",
     "url": "/ReactJS-WebChat/static/css/main.f206fe27.chunk.css"
   },
   {
-    "revision": "c1e2da553d5a05e10778",
-    "url": "/ReactJS-WebChat/static/js/2.727d6be0.chunk.js"
+    "revision": "403756699247eba39c66",
+    "url": "/ReactJS-WebChat/static/js/2.dff95461.chunk.js"
   },
   {
-    "revision": "1d1ccf102a21069b6bec",
-    "url": "/ReactJS-WebChat/static/js/main.b29e0f51.chunk.js"
+    "revision": "7c1b25cab6ebf584ce71",
+    "url": "/ReactJS-WebChat/static/js/main.d589f61b.chunk.js"
   },
   {
     "revision": "4ae404dcb1659cb40461",
