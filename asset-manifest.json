@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/ReactJS-WebChat/static/css/main.f206fe27.chunk.css",
-    "main.js": "/ReactJS-WebChat/static/js/main.cea38765.chunk.js",
-    "main.js.map": "/ReactJS-WebChat/static/js/main.cea38765.chunk.js.map",
+    "main.js": "/ReactJS-WebChat/static/js/main.e4c77652.chunk.js",
+    "main.js.map": "/ReactJS-WebChat/static/js/main.e4c77652.chunk.js.map",
     "runtime-main.js": "/ReactJS-WebChat/static/js/runtime-main.a29ccac0.js",
     "runtime-main.js.map": "/ReactJS-WebChat/static/js/runtime-main.a29ccac0.js.map",
     "static/css/2.64a99b10.chunk.css": "/ReactJS-WebChat/static/css/2.64a99b10.chunk.css",
     "static/js/2.86bb227f.chunk.js": "/ReactJS-WebChat/static/js/2.86bb227f.chunk.js",
     "static/js/2.86bb227f.chunk.js.map": "/ReactJS-WebChat/static/js/2.86bb227f.chunk.js.map",
     "index.html": "/ReactJS-WebChat/index.html",
-    "precache-manifest.7120637bb946e6b063c6063af5e0d4fa.js": "/ReactJS-WebChat/precache-manifest.7120637bb946e6b063c6063af5e0d4fa.js",
+    "precache-manifest.2300920cef528e14c312ce39383e2cc0.js": "/ReactJS-WebChat/precache-manifest.2300920cef528e14c312ce39383e2cc0.js",
     "service-worker.js": "/ReactJS-WebChat/service-worker.js",
     "static/css/2.64a99b10.chunk.css.map": "/ReactJS-WebChat/static/css/2.64a99b10.chunk.css.map",
     "static/css/main.f206fe27.chunk.css.map": "/ReactJS-WebChat/static/css/main.f206fe27.chunk.css.map"
@@ -19,6 +19,6 @@
     "static/css/2.64a99b10.chunk.css",
     "static/js/2.86bb227f.chunk.js",
     "static/css/main.f206fe27.chunk.css",
-    "static/js/main.cea38765.chunk.js"
+    "static/js/main.e4c77652.chunk.js"
   ]
 }
