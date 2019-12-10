@@ -1,17 +1,10 @@
 import React, { Component } from 'react';
-import { createStore } from 'redux';
 import { Provider } from 'react-redux'
+
 import './App.scss';
-
 import AppContainer from './AppContainer';
+import store from './view/redux/store';
 
-const initialState = {
-	name: 'manh'
-}
-const rootReducer = (state = initialState, action: any) => {
-	return state;
-}
-const store = createStore(rootReducer);
 interface IProps {
 
 }
@@ -25,11 +18,7 @@ interface IState {
 class App extends Component<IProps, IState> {
 	constructor(props: IProps) {
 		super(props);
-		this.state = {
-		}
-	}
-	componentDidMount = () => {
-
+		this.state = {}
 	}
 	render() {
 		return (
