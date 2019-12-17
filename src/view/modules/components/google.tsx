@@ -3,9 +3,9 @@ import { GoogleLogin } from 'react-google-login';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { getUser } from '../../redux/actions/login';
+import { login } from '../../redux/actions/login';
 interface Iprop {
-    getUser: any
+    login: any
 }
 interface Istate {
 
@@ -15,7 +15,7 @@ class Google extends Component<Iprop, Istate> {
 
 
     responseGoogle = (response: any) => {
-        this.props.getUser(response.profileObj)
+        this.props.login(response.profileObj)
     }
     render() {
         return (
@@ -37,7 +37,7 @@ const mapStateToProps = (state: any) => {
 }
 const mapDispatchToProps = (dispatch: any) => bindActionCreators(
     {
-        getUser
+        login
     },
     dispatch,
 );

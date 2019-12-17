@@ -9,18 +9,21 @@ import 'firebase/storage';
 import 'firebase/analytics';
 
 var firebaseConfig = {
-    apiKey: "AIzaSyBk5dvWkTPNsVYX7P-Jdiix1Jn3wOLGGDA",
-    authDomain: "github-4fe6d.firebaseapp.com",
-    databaseURL: "https://github-4fe6d.firebaseio.com",
-    projectId: "github-4fe6d",
-    storageBucket: "github-4fe6d.appspot.com",
-    messagingSenderId: "1040095152319",
-    appId: "1:1040095152319:web:36983efe3836536b8a5e0a",
-    measurementId: "G-EGQCR9DMB3"
+    apiKey: "AIzaSyDcpu3MSgcBVZtKh2qPqkGNPxVI0vFIziA",
+    authDomain: "webchat-795b9.firebaseapp.com",
+    databaseURL: "https://webchat-795b9.firebaseio.com",
+    projectId: "webchat-795b9",
+    storageBucket: "webchat-795b9.appspot.com",
+    messagingSenderId: "996071709588",
+    appId: "1:996071709588:web:30f27e906d83421fd3cd81",
+    measurementId: "G-BPNN80YNJ9"
 };
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 firebase.analytics();
+
+
+
 
 ReactDOM.render(<App />, document.getElementById('root'));
 

@@ -3,7 +3,7 @@ import { Provider } from 'react-redux'
 
 import './App.scss';
 import AppContainer from './AppContainer';
-import store from './view/redux/store';
+import { configureStore } from './view/redux/store/index';
 
 interface IProps {
 
@@ -12,6 +12,7 @@ interface IProps {
 interface IState {
 }
 
+const store = configureStore()
 
 // import Button from './view/components/button';
 

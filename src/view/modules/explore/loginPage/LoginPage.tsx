@@ -7,9 +7,9 @@ import { bindActionCreators } from 'redux';
 
 import FaceBooks from '../../components/FaceBooks';
 import Google from '../../components/google';
-import { getUser } from '../../../redux/actions/login';
+import { login } from '../../../redux/actions/login';
 interface IProps {
-    getUser: any,
+    login: any,
     isAut: any
 }
 interface IStates {
@@ -33,7 +33,7 @@ class LoginPage extends Component<IProps, IStates> {
 
     _handelSubmit = (event: any) => {
         event.preventDefault();
-        this.props.getUser()
+        this.props.login()
         // this.setState((preState) => {
         //     return {
         //         ...preState,
@@ -64,7 +64,6 @@ class LoginPage extends Component<IProps, IStates> {
     render() {
         const { isLoading } = this.state;
         const { isAut } = this.props;
-        console.log(this.props);
 
         if (isAut == true) {
             return <Redirect to={{ pathname: "/home", state: { userName: "" } }} />
@@ -83,9 +82,9 @@ class LoginPage extends Component<IProps, IStates> {
                             </div>
                             <div className="form-group">
                                 <input className="btn btn-primary" type="submit" value="Login" />
-                                <Google />
+                                {/* <Google /> */}
+                                {/* <FaceBooks /> */}
                             </div>
-                            {/* <FaceBooks /> */}
                             {
                                 (isLoading) ? (
                                     <div className="spinner-border" role="status">
@@ -108,7 +107,7 @@ const mapStateToProps = (state: any) => {
 }
 const mapDispatchToProps = (dispatch: any) => bindActionCreators(
     {
-        getUser
+        login
     },
     dispatch,
 );

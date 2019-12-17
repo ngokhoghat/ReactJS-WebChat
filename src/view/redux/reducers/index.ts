@@ -1,9 +1,11 @@
 import { combineReducers } from "redux";
 import { loginPageReducer } from "./login/index"
+import { testEpic } from './ping/index'
 
 
 export const appReducer = combineReducers({
-    loginPageReducer
+    loginPageReducer,
+    testEpic
 });
 
 export const rootReducer = (state: any, action: any) => {

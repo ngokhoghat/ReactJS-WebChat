@@ -1,5 +1,6 @@
 import { combineReducers } from "redux"
-import { GET_USER } from "../../actions/login";
+import { LOGIN, LOGIN_SUCCESS, LOGIN_FALSE } from "../../actions/login";
+import { IAction } from "../../../shared/interfaces/common";
 
 
 const initialState = {
@@ -14,22 +15,14 @@ const initialState = {
 }
 
 
-export function loginReducer(state: any = initialState, action: any) {
+export function loginReducer(state: any = initialState, action: IAction<any>) {
     switch (action.type) {
-        case GET_USER:
-            console.log(action);
-            const user = action.payload;
-            return {
-                ...state,
-                isAut: true,
-                user: {
-                    fullName: user.name,
-                    email: user.email,
-                    firstName: user.familyName,
-                    lastName: user.givenName,
-                    img: user.imageUrl
-                },
-            }
+        case LOGIN:
+            return state;
+        case LOGIN_SUCCESS:
+            return state;
+        case LOGIN_FALSE:
+            return state;
         default:
             return state;
     }

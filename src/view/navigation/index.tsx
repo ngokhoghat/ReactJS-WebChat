@@ -9,6 +9,7 @@ import {
 import HomePage from '../modules/explore/homePage/homePage';
 import ProductPage from '../modules/explore/productPage/ProductPage';
 import LoginPage from '../modules/explore/loginPage/LoginPage';
+import TestEpic from '../modules/explore/testEpic/TestEpic';
 
 
 export default function ModalSwitch() {
@@ -17,7 +18,8 @@ export default function ModalSwitch() {
 
     return (
         <Switch location={background || location}>
-            <Route exact path="/" children={<LoginPage />} />
+            {/* <Route exact path="/" children={<LoginPage />} /> */}
+            <Route exact path="/" children={<TestEpic />} />
             <Route path="/home" children={<HomePage />} />
         </Switch>
     );
