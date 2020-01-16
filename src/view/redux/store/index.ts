@@ -1,22 +1,21 @@
 import { createEpicMiddleware } from 'redux-observable';
 import { createStore, applyMiddleware, compose } from "redux";
+import { createLogger } from 'redux-logger';
 import { rootReducer } from "../reducers";
 import { rootEpic } from '../epics';
 
-
 const epicMiddleware = createEpicMiddleware();
-const composeEnhancers = compose;
-
 
 export const configureStore = () => {
+    const middlewares: any = [epicMiddleware];
+    middlewares.push(createLogger())
     const store = createStore(
         rootReducer,
-        composeEnhancers(
-            applyMiddleware(epicMiddleware)
+        compose(
+            applyMiddleware(...middlewares)
         )
     );
-    
-    epicMiddleware.run(rootEpic);
 
+    epicMiddleware.run(rootEpic);
     return store;
 }

@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Provider } from 'react-redux'
 
+
+
 import './App.scss';
 import AppContainer from './AppContainer';
 import { configureStore } from './view/redux/store/index';
@@ -13,7 +15,6 @@ interface IState {
 }
 
 const store = configureStore()
-
 // import Button from './view/components/button';
 
 class App extends Component<IProps, IState> {

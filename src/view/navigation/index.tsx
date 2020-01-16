@@ -19,7 +19,7 @@ export default function ModalSwitch() {
     return (
         <Switch location={background || location}>
             {/* <Route exact path="/" children={<LoginPage />} /> */}
-            <Route exact path="/" children={<TestEpic />} />
+            <Route exact path="/" children={<LoginPage />} />
             <Route path="/home" children={<HomePage />} />
         </Switch>
     );

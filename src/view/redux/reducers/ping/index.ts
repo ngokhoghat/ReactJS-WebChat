@@ -8,8 +8,6 @@ const initialState = {
 export function pingReducer(state = initialState, action: any) {
     switch (action.type) {
         case 'PING':
-            console.log("G");
-            
             return {
                 ...state,
                 isPinging: true

@@ -1,0 +1,36 @@
+@mixin marginHorizontal($param) {
+    margin-left: $param;
+    margin-right: $param;
+}
+
+@mixin marginVertical ($param) {
+    margin-top: $param;
+    margin-bottom: $param;
+}
+
+@mixin paddingHorizontal($param) {
+    padding-left: $param;
+    padding-right: $param;
+}
+
+@mixin paddingVertical($param) {
+    padding-top: $param;
+    padding-bottom: $param;
+}
+
+@mixin scale($param) {
+    @keyframes scale {
+        0% {
+            transform: scale(1);
+        }
+        100% {
+            transform: scale($param);
+        }
+    }
+}
+
+@function breakpoints($breakpoint) {
+    @return map-get($grid-breakpoints, $breakpoint);
+}
+
+@include scale(1.5)

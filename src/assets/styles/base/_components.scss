@@ -1,0 +1,121 @@
+/* Track */
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+
+/* Handle on hover */
+
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+::-webkit-scrollbar {
+    width: 5px;
+}
+
+.Avatar {
+    position: relative;
+    width: 45px;
+    height: 45px;
+    img {
+        width: 100%;
+        height: 100%;
+        border-radius: 99px;
+    }
+    .status {
+        width: 10px;
+        height: 10px;
+        border-radius: 50px;
+        position: absolute;
+        padding: 1px;
+        background: #fff;
+        bottom: 0px;
+        right: 0px;
+        .online {
+            width: 100%;
+            height: 100%;
+            border-radius: 50px;
+            background: greenyellow;
+        }
+        .offline {
+            width: 100%;
+            height: 100%;
+            border-radius: 50px;
+            background: gray;
+        }
+    }
+}
+
+.VeticalMenu {
+    ul {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        align-content: center;
+        list-style: none;
+        li {
+            i {
+                font-size: 20px;
+                color: $colorIconTabMenu;
+                transition: 0.1s;
+                &:hover {
+                    transform: scale(1.2);
+                    color: #2990FF;
+                }
+            }
+            @include paddingVertical(10px);
+        }
+    }
+}
+
+.horizontalMenu {
+    ul {
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        height: 100%;
+        align-items: center;
+        list-style: none;
+        li {
+            i {
+                font-size: 25px;
+                color: $colorIconTabMenu;
+                transition: 0.1s;
+                &:hover {
+                    transform: scale(1.2);
+                    color: #2990FF;
+                }
+            }
+            @include marginHorizontal(10px);
+        }
+    }
+}
+
+.socialBtn{
+    width: 50px;
+    height: 50px;
+    margin: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    border: 1px solid #ffffff;
+    border-radius: 40px;
+    background-color: #ea4335;
+    img{
+        width: 100%;
+    }
+    &:hover{
+        background-color: gray;
+    }
+}
+
+.fb{
+    width: 50px;
+    background-color: #3b5998;
+    img{
+        width: 20px;
+    }
+}
