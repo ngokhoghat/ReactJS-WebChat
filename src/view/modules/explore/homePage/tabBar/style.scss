@@ -1,0 +1,24 @@
+.tab-bar {
+    display: flex;
+    width: 100%;
+    background-color: #646382;
+    &__child {
+        width: 50%;
+        text-align: center;
+        text-transform: uppercase;
+        font-size: small;
+        font-weight: bold;
+        cursor: pointer;
+        &:not(:first-child) {
+            border-left: 1px solid #bababa;
+        }
+        p {
+            margin: 0;
+            padding: 10px;
+        }
+    }
+    .active {
+        color: #fff;
+        border-bottom: 5px solid #42415B;
+    }
+}

@@ -28,7 +28,6 @@ class LoginPageFormLogin extends Component<IProps, IStates> {
 
     _handelSubmit = (event: any) => {
         const { u_name, u_pass } = this.state;
-
         const user = {
             u_name,
             u_pass
@@ -69,8 +68,8 @@ class LoginPageFormLogin extends Component<IProps, IStates> {
                         <p className="w-100">Or Sign Up Using</p>
                     </div>
                     <div className="loginSocial__icon">
-                        <GoogleBtn />
-                        <FaceBookBtn />
+                        {/* <GoogleBtn />
+                        <FaceBookBtn /> */}
                     </div>
                 </div>
                 <div className="signin mt-5">

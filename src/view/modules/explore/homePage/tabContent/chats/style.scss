@@ -1,0 +1,53 @@
+.chat-box {
+    width: 50%;
+    margin-top: 20px;
+    height: 500px;
+    border: 1px solid;
+    border-radius: 5px;
+    overflow: hidden;
+    &:hover {
+        overflow-y: scroll;
+    }
+    &__title {
+        position: sticky;
+        top: 0;
+        z-index: 2;
+        padding: 15px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: large;
+        font-weight: 500;
+        background-color: #3D3C57;
+    }
+    &__chat {
+        width: 100%;
+        display: flex;
+        padding: 15px;
+        align-items: center;
+        &:hover {
+            background-color: #646382;
+            cursor: pointer;
+        }
+        &:not(:last-child) {
+            border-bottom: 1px solid #3D3C57;
+        }
+    }
+}
+
+.last-message {
+    width: 100%;
+    margin-left: 15px;
+    &__user-name {
+        display: flex;
+        justify-content: space-between;
+        color: #000;
+        &--last-online {
+            font-size: 12px;
+            color: gray;
+        }
+    }
+    &__content {
+        color: gray;
+    }
+}

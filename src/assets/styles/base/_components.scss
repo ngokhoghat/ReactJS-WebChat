@@ -93,7 +93,7 @@
     }
 }
 
-.socialBtn{
+.socialBtn {
     width: 50px;
     height: 50px;
     margin: 5px;
@@ -104,18 +104,82 @@
     border: 1px solid #ffffff;
     border-radius: 40px;
     background-color: #ea4335;
-    img{
+    img {
         width: 100%;
     }
-    &:hover{
+    &:hover {
         background-color: gray;
     }
 }
 
-.fb{
+.fb {
     width: 50px;
     background-color: #3b5998;
-    img{
+    img {
         width: 20px;
     }
+}
+
+.select-custom {
+    display: none;
+    position: absolute;
+    background: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 10px 0 #646382;
+    &__status {
+        display: flex;
+        align-items: center;
+        border-radius: 5px;
+        padding: 5px 10px;
+        &--icon {
+            width: 10px;
+            height: 10px;
+            border-radius: 10px;
+            margin-right: 10px;
+        }
+        &:hover {
+            background-color: #646382;
+            cursor: pointer;
+        }
+    }
+}
+
+.avatar {
+    display: flex;
+    &__img {
+        width: 50px;
+        height: 50px;
+        position: relative;
+        span {
+            width: 12px;
+            height: 12px;
+            position: absolute;
+            bottom: 3px;
+            padding: 2px;
+            right: 0px;
+            background-color: #42415B;
+            border-radius: 5px;
+            p {
+                width: 100%;
+                height: 100%;
+                border-radius: 5px;
+                background-color: green;
+            }
+        }
+        img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50px;
+        }
+    }
+    &__content {
+        margin-left: 10px;
+        &--title {
+            color: #fff;
+        }
+    }
+}
+
+.social-btn {
+    font-size: 30px;
 }

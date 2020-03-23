@@ -12,28 +12,30 @@ export const loginEpic = (action$: any, state$: any) => {
         ofType(LOGIN),
         switchMap((action: any) => {
             return new Observable((obs) => {
-                const FireBase = new FireBaseAut;
-                FireBase.create(action.payload);
-                const { u_name, u_pass } = action.payload;
-                const db = firebaseFirestore();
-                db.collection('users').where("name", '==', `${u_name}`).get().then(snapshot => {
-                    if (snapshot.empty) {
-                        obs.next(loginFalse("Error"));
-                        obs.complete();
-                        return;
-                    } else {
-                        snapshot.forEach(doc => {
-                            console.log(doc.id, '=>', doc.data());
-                        });
-                        obs.next(loginSuccess(snapshot));
-                        obs.complete();
-                    }
+                setTimeout(() => {
+                    obs.next(loginSuccess("snapshot"));
+                }, 1000);
+                // const FireBase = new FireBaseAut;
+                // FireBase.create(action.payload);
+                // const { u_name, u_pass } = action.payload;
+                // const db = firebaseFirestore();
+                // db.collection('users').where("name", '==', `${u_name}`).get().then(snapshot => {
+                //     if (snapshot.empty) {
+                //         obs.next(loginFalse("Error"));
+                //         obs.complete();
+                //         return;
+                //     } else {
+                //         snapshot.forEach(doc => {
+                //             console.log(doc.id, '=>', doc.data());
+                //         });
+                //         obs.complete();
+                //     }
 
-                }).catch(err => {
-                    obs.next(loginFalse(err));
-                    obs.complete();
-                    // console.log('Error getting documents', err);
-                });
+                // }).catch(err => {
+                //     obs.next(loginFalse(err));
+                //     obs.complete();
+                //     // console.log('Error getting documents', err);
+                // });
 
             })
         })
