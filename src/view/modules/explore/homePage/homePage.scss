@@ -4,6 +4,7 @@
     align-items: center;
     width: 100vw;
     height: 100vh;
+    position: relative;
 }
 
 .box-content {
@@ -12,15 +13,9 @@
     border-radius: 5px;
     box-shadow: 0px 0px 10px #646382;
     overflow: hidden;
-}
-
-.header {
-    width: 100%;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-    &__profile {
+    @media (max-width: 481px) {
         width: 100%;
-        background-color: #3D3C57;
-        padding: 15px;
+        height: 100%;
+        border-radius: 0;
     }
 }

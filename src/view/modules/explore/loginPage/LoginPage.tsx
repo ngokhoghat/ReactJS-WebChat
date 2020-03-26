@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Redirect } from 'react-router';
 import { connect } from 'react-redux';
 
-import '../../../../assets/styles/loginPage/login_page.scss'
+import './loginPage/login_page.scss'
 import LoginPageFormLogin from './LoginPageFormLogin';
 import LoginPageLoading from './LoginPageLoading';
 interface IProps {
@@ -40,7 +40,7 @@ class LoginPage extends Component<IProps, IStates> {
             return <Redirect to={{ pathname: "/home" }} />
         } else {
             return (
-                <div className="container-fluid login_page">
+                <div className="login_page">
                     <LoginPageFormLogin />
                     {(isLoading) ? <LoginPageLoading /> : null}
                 </div>

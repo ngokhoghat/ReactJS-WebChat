@@ -15,8 +15,6 @@ interface IState {
 }
 
 const store = configureStore()
-// import Button from './view/components/button';
-
 class App extends Component<IProps, IState> {
 	constructor(props: IProps) {
 		super(props);

@@ -1,71 +1,79 @@
-.login_pageForm{
+.login-page-form {
     width: 500px;
-    background-color: #ffffff;
+    background-color: #fff;
     padding: 50px;
     border-radius: 10px;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    &--title{
+    &__title {
         width: 100%;
         font-size: 39px;
         text-align: center;
         font-family: "Poppins-Bold";
     }
+    @media (max-width: 481px) {
+        display: flex;
+        border-radius: 0px;
+        width: 100vw;
+        height: 100vh;
+        margin: 0;
+        justify-content: space-around;
+    }
 }
 
-.form-group{
+.form-group {
     width: 100%;
-    label{
+    label {
         font-family: "Poppins-Regular";
         font-size: 14px;
     }
-    input{
+    input {
         border: none;
         border-bottom: 1px solid;
         border-radius: 0px;
-        &:focus{
+        &:focus {
             box-shadow: none;
         }
     }
-    .forgotPassword{
+    .forgotPassword {
         font-family: "Poppins-Regular";
         font-size: 14px;
         color: gray;
     }
-    .login-btn{
+    .login-btn {
         width: 100%;
         font-size: 24px;
         border-radius: 30px;
-        background: linear-gradient(90deg, rgba(0,212,255,1) 0%, rgba(208,71,226,1) 55%, rgba(225,5,230,1) 100%);
-        &:hover{
+        background: linear-gradient(90deg, rgba(0, 212, 255, 1) 0%, rgba(208, 71, 226, 1) 55%, rgba(225, 5, 230, 1) 100%);
+        &:hover {
             border-color: #ffffff;
         }
     }
 }
 
-.loginSocial{
+.loginSocial {
     width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    p{
+    p {
         font-family: "Poppins-Regular";
         font-size: 14px;
         color: gray;
     }
-    &__icon{
+    &__icon {
         display: flex;
     }
 }
 
-.signin{
+.signin {
     text-align: center;
     text-transform: uppercase;
     text-decoration: underline;
-    font-family:"Poppins-Bold";
-    a{
+    font-family: "Poppins-Bold";
+    a {
         color: gray;
     }
 }

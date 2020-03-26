@@ -5,7 +5,7 @@ import Lottie from 'react-lottie';
 
 import * as animationData from '../../../../assets/animation/lottie/1918loadinganddone.json'
 import * as animationDatas from '../../../../assets/animation/lottie/196materialwaveloading.json'
-import '../../../../assets/styles/loginPage/login_pageLoading.scss'
+import './loginPage/login_pageLoading.scss'
 interface IProps {
 
 }

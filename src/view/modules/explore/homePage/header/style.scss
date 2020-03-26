@@ -1,0 +1,33 @@
+.header {
+    width: 100%;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    &__profile {
+        width: 100%;
+        background-color: #3D3C57;
+        padding: 15px;
+    }
+    &__search {
+        display: flex;
+        margin: 15px 0;
+        padding: 0 15px;
+        justify-content: center;
+        .input-container {
+            border: 1px solid #dddddd;
+            border-radius: 20px;
+            padding: 0 15px;
+            width: 100%;
+            input {
+                padding: 5px;
+                border: none;
+                &::placeholder {
+                    padding: 0 5px;
+                }
+            }
+            i {
+                color: gray;
+                margin-right: 10px;
+            }
+        }
+    }
+}

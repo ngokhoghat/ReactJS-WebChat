@@ -1,0 +1,16 @@
+.friend-list {
+    display: flex;
+    padding: 0 15px;
+    overflow: auto;
+    &__element {
+        margin: 0 15px 0 0;
+        .avatar {
+            span {
+                background-color: #fff;
+            }
+        }
+    }
+    &::-webkit-scrollbar {
+        display: none;
+    }
+}

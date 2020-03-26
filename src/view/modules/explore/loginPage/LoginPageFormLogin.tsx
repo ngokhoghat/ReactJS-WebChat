@@ -1,14 +1,14 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { bindActionCreators } from 'redux';
 
 
 
 import { login } from '../../../redux/actions/login';
 import FaceBookBtn from '../../components/FaceBookBtn';
 import GoogleBtn from '../../components/GoogleBtn';
-import '../../../../assets/styles/loginPage/login_pageForm.scss'
-import { bindActionCreators } from 'redux';
+import './loginPage/login_pageForm.scss'
 interface IProps {
     login: any
 }
@@ -47,8 +47,8 @@ class LoginPageFormLogin extends Component<IProps, IStates> {
     }
     render() {
         return (
-            <form onSubmit={this._handelSubmit} className="login_pageForm">
-                <h3 className="login_pageForm--title">Login</h3>
+            <form onSubmit={this._handelSubmit} className="login-page-form">
+                <h3 className="login-page-form__title">Login</h3>
                 <div className="form-group mt-5">
                     <label htmlFor="">Usename</label>
                     <input onChange={this._handelChange} name="u_name" value={this.state.u_name} className="form-control" />
