@@ -7,13 +7,7 @@ const initialState = {
     isAut: false,
     isLoading: false,
     error: null,
-    user: {
-        fullName: null,
-        email: null,
-        firstName: null,
-        lastName: null,
-        img: null
-    }
+    user: {}
 }
 
 
@@ -28,7 +22,8 @@ export function loginReducer(state: any = initialState, action: IAction<any>) {
             return {
                 ...state,
                 isAut: true,
-                isLoading: false
+                isLoading: false,
+                user: action.payload
             };
         case LOGIN_FALSE:
             return {

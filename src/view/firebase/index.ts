@@ -1,12 +1,8 @@
 import * as firebase from 'firebase/app';
-import 'firebase/database';
-import 'firebase/storage';
-import 'firebase/analytics';
-
+import 'firebase/auth'
+import 'firebase/firestore'
 
 import { firebaseConfig } from './config/firebase.config';
 
-export function FirebaseConfig() {
-    // Initialize Firebase
-
-}
+const app = firebase.initializeApp(firebaseConfig);
+export default app;

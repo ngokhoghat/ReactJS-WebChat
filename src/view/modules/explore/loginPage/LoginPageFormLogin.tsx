@@ -6,8 +6,8 @@ import { bindActionCreators } from 'redux';
 
 
 import { login } from '../../../redux/actions/login';
-import FaceBookBtn from '../../components/FaceBookBtn';
-import GoogleBtn from '../../components/GoogleBtn';
+// import FaceBookBtn from '../../components/FaceBookBtn';
+// import GoogleBtn from '../../components/GoogleBtn';
 import './loginPage/login_pageForm.scss'
 interface IProps {
     login: any
@@ -39,7 +39,6 @@ class LoginPageFormLogin extends Component<IProps, IStates> {
         const target = event.target;
         const value = target.type === 'checkbox' ? target.checked : target.value;
         const name: any = target.name;
-
         // @ts-ignore
         this.setState({
             [name]: value

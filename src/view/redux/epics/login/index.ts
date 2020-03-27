@@ -1,58 +1,31 @@
 
 import { ofType } from 'redux-observable';
-import { Observable, of, interval } from 'rxjs';
-import { exhaustMap, switchMap, mergeMap, filter, mapTo, take } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { exhaustMap } from 'rxjs/operators';
+import app from '../../../firebase';
 
 import { LOGIN, loginSuccess, loginFalse } from '../../actions/login';
-import { firebaseFirestore } from '../../../firebase/database/fireStore';
-import { FireBaseAut } from '../../../firebase/database/FireBaseAut';
+import { getUser } from '../../actions/user';
 
 export const loginEpic = (action$: any, state$: any) => {
     return action$.pipe(
         ofType(LOGIN),
-        switchMap((action: any) => {
+        exhaustMap((action: any) => {
             return new Observable((obs) => {
-                setTimeout(() => {
-                    obs.next(loginSuccess("snapshot"));
-                }, 1000);
-                // const FireBase = new FireBaseAut;
-                // FireBase.create(action.payload);
-                // const { u_name, u_pass } = action.payload;
-                // const db = firebaseFirestore();
-                // db.collection('users').where("name", '==', `${u_name}`).get().then(snapshot => {
-                //     if (snapshot.empty) {
-                //         obs.next(loginFalse("Error"));
-                //         obs.complete();
-                //         return;
-                //     } else {
-                //         snapshot.forEach(doc => {
-                //             console.log(doc.id, '=>', doc.data());
-                //         });
-                //         obs.complete();
-                //     }
-
-                // }).catch(err => {
-                //     obs.next(loginFalse(err));
-                //     obs.complete();
-                //     // console.log('Error getting documents', err);
-                // });
-
+                const { u_name, u_pass } = action.payload;
+                app.auth().signInWithEmailAndPassword(u_name, u_pass)
+                    .then((res: any) => {
+                        obs.next(getUser(res.user.uid));
+                        obs.next(loginSuccess(res));
+                        obs.complete();
+                    })
+                    .catch(function (error) {
+                        var errorCode = error.code;
+                        var errorMessage = error.message;
+                        obs.next(loginFalse(error))
+                        obs.complete();
+                    });
             })
         })
     );
 }
-// export const pingEpic = (action$: any) => {
-//     return action$.pipe(
-//         ofType(PING),
-//         switchMap((action: any) => {
-//             return new Observable(obs => {
-//                 console.log("Hello");
-//                 setTimeout(() => {
-//                     obs.next(pong());
-//                 }, 1000);
-//             })
-//         })
-//         // delay(2000),
-//         // mapTo(getPing())
-//     )
-// };

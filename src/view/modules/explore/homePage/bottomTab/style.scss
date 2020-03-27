@@ -1,0 +1,31 @@
+.bottom-tab {
+    bottom: 0;
+    display: flex;
+    position: absolute;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    background-color: #fff;
+    border-top: 1px solid #dddddd;
+    &__icon {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 5px 0;
+        &--icon {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            i {
+                font-size: 20px;
+                color: gray;
+            }
+        }
+        &--text {
+            font-size: 15px;
+        }
+    }
+}

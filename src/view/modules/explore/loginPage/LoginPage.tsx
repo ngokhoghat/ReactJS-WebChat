@@ -11,21 +11,12 @@ interface IProps {
     isLoading: any;
 }
 interface IStates {
-    u_name: any,
-    u_pass: any,
-    isStopped: any;
-    isPaused: any
+   
 }
 
 class LoginPage extends Component<IProps, IStates> {
     constructor(props: IProps) {
         super(props);
-        this.state = {
-            u_name: "",
-            u_pass: "",
-            isStopped: false,
-            isPaused: false
-        }
     }
 
     componentDidMount = () => {
@@ -33,9 +24,7 @@ class LoginPage extends Component<IProps, IStates> {
 
     render() {
 
-        // const { isLoading } = this.state;
         const { isAut, error, isLoading } = this.props;
-
         if (isAut == true) {
             return <Redirect to={{ pathname: "/home" }} />
         } else {

@@ -1,11 +1,10 @@
 import React, { Component } from 'react'
 
-export default class HomePageRouter extends Component {
+export default class HomePageComponents extends Component {
     render() {
-
         return (
             <div>
-                ádasd
+                
             </div>
         )
     }

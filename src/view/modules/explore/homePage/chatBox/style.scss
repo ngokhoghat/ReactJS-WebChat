@@ -1,3 +1,27 @@
 .chat-box {
-    background-color: red;
+    padding: 0 15px;
+    height: 100%;
+    overflow: auto;
+    &::-webkit-scrollbar {
+        display: none;
+    }
+    &__element {
+        margin: 15px 0;
+        display: flex;
+        .avatar {
+            span {
+                background-color: #fff;
+            }
+        }
+        &--avatar {
+            margin-right: 10px;
+        }
+        &--old-message {
+            .name {}
+            .old-massage {
+                font-size: 14px;
+                opacity: 0.5;
+            }
+        }
+    }
 }

@@ -7,9 +7,9 @@ import {
 
 
 import HomePage from '../modules/explore/homePage/homePage';
-import ProductPage from '../modules/explore/productPage/ProductPage';
 import LoginPage from '../modules/explore/loginPage/LoginPage';
-import TestEpic from '../modules/explore/testEpic/TestEpic';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
+import ChatPage from '../modules/explore/chatPage';
 
 
 export default function ModalSwitch() {
@@ -17,10 +17,22 @@ export default function ModalSwitch() {
     let background = location.state && location.state.background;
 
     return (
-        <Switch location={background || location}>
-            {/* <Route exact path="/" children={<LoginPage />} /> */}
-            <Route exact path="/" children={<LoginPage />} />
-            <Route path="/home" children={<HomePage />} />
-        </Switch>
+        <Route render={({ location }) => (
+            <TransitionGroup>
+                <CSSTransition
+                    key={location.key}
+                    classNames="page"
+                    timeout={1000}
+                >
+                    <Switch location={background || location}>
+                        {/* <Route exact path="/" children={<LoginPage />} /> */}
+                        <Route exact path="/" children={<LoginPage />} />
+                        <Route path="/home" children={<HomePage />} />
+                        <Route path="/chat" children={<ChatPage />} />
+                    </Switch>
+                </CSSTransition>
+            </TransitionGroup>
+        )}
+        />
     );
 }

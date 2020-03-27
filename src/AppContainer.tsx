@@ -6,9 +6,11 @@ export default class AppContainer extends Component {
 
     render() {
         return (
-            <HashRouter basename="/">
-                <ModalSwitch />
-            </HashRouter>
+            // <HashRouter basename="/">
+                <Router>
+                    <ModalSwitch />
+                </Router>
+            // </HashRouter>
         )
     }
 }
