@@ -1,32 +1,24 @@
 import React, { Component } from 'react';
 import { Provider } from 'react-redux'
-
-
-
-import './App.scss';
-import AppContainer from './AppContainer';
 import { configureStore } from './view/redux/store/index';
+import { PersistGate } from 'redux-persist/integration/react'
+import { persistStore } from 'redux-persist';
 
-interface IProps {
-
-}
-
-interface IState {
-}
+import AppContainer from './AppContainer';
+import './App.scss';
 
 const store = configureStore()
-class App extends Component<IProps, IState> {
-	constructor(props: IProps) {
-		super(props);
-		this.state = {}
-	}
-	render() {
-		return (
-			<Provider store={store}>
-				<AppContainer />
-			</Provider>
-		);
-	}
+let persistor = persistStore(store)
+
+
+const App = () => {
+	return (
+		<Provider store={store}>
+			<AppContainer />
+			{/* <PersistGate loading={null} persistor={persistor}>
+			</PersistGate> */}
+		</Provider>
+	);
 }
 
 export default App;

@@ -10,31 +10,19 @@ interface IProps {
     error: any,
     isLoading: any;
 }
-interface IStates {
-   
-}
 
-class LoginPage extends Component<IProps, IStates> {
-    constructor(props: IProps) {
-        super(props);
-    }
+const LoginPage = (props: IProps) => {
 
-    componentDidMount = () => {
-    }
-
-    render() {
-
-        const { isAut, error, isLoading } = this.props;
-        if (isAut == true) {
-            return <Redirect to={{ pathname: "/home" }} />
-        } else {
-            return (
-                <div className="login_page">
-                    <LoginPageFormLogin />
-                    {(isLoading) ? <LoginPageLoading /> : null}
-                </div>
-            )
-        }
+    const { isAut, error, isLoading } = props;
+    if (isAut == true) {
+        return <Redirect to={{ pathname: "/home" }} />
+    } else {
+        return (
+            <div className="login_page">
+                <LoginPageFormLogin />
+                {(isLoading) ? <LoginPageLoading /> : null}
+            </div>
+        )
     }
 }
 

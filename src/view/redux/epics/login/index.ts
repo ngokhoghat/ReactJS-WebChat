@@ -5,7 +5,7 @@ import { exhaustMap } from 'rxjs/operators';
 import app from '../../../firebase';
 
 import { LOGIN, loginSuccess, loginFalse } from '../../actions/login';
-import { getUser } from '../../actions/user';
+import { getUser, getUserFriendList } from '../../actions/user';
 
 export const loginEpic = (action$: any, state$: any) => {
     return action$.pipe(
@@ -15,8 +15,9 @@ export const loginEpic = (action$: any, state$: any) => {
                 const { u_name, u_pass } = action.payload;
                 app.auth().signInWithEmailAndPassword(u_name, u_pass)
                     .then((res: any) => {
-                        obs.next(getUser(res.user.uid));
                         obs.next(loginSuccess(res));
+                        obs.next(getUser(res.user.uid));
+                        obs.next(getUserFriendList(res.user.uid));
                         obs.complete();
                     })
                     .catch(function (error) {
