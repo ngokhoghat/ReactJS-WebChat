@@ -23,7 +23,7 @@ export const configureStore = () => {
     const middlewares: any = [epicMiddleware];
     middlewares.push(createLogger())
     const store = createStore(
-        rootReducer,
+        persistedReducer,
         compose(
             applyMiddleware(...middlewares)
         )

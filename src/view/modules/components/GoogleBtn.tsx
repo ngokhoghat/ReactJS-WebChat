@@ -6,7 +6,7 @@ import { bindActionCreators } from 'redux';
 
 
 import logo from '../../../assets/image/svg/google-brands.svg'
-import { login } from '../../redux/actions/login';
+import { login } from '../../redux/actions/auth';
 interface Iprop {
     login: any
 }

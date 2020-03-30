@@ -3,12 +3,9 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 
-
-
-import { login } from '../../../redux/actions/login';
+import { login } from '../../../../../redux/actions/auth';
 // import FaceBookBtn from '../../components/FaceBookBtn';
 // import GoogleBtn from '../../components/GoogleBtn';
-import './loginPage/login_pageForm.scss'
 interface IProps {
     login: any
 }
@@ -72,7 +69,7 @@ class LoginPageFormLogin extends Component<IProps, IStates> {
                     </div>
                 </div>
                 <div className="signin mt-5">
-                    <Link to="">SIGN IN</Link>
+                    <Link to="/sign-in">SIGN IN</Link>
                 </div>
             </form>
         )

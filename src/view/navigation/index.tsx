@@ -6,10 +6,11 @@ import {
 } from "react-router-dom";
 
 
-import HomePage from '../modules/explore/homePage/homePage';
-import LoginPage from '../modules/explore/loginPage/LoginPage';
+import HomePage from '../modules/explore/homePage';
+import LoginPage from '../modules/explore/auth/loginPage';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import ChatPage from '../modules/explore/chatPage';
+import RegisterPage from '../modules/explore/auth/registerPage';
 
 
 export default function ModalSwitch() {
@@ -27,6 +28,7 @@ export default function ModalSwitch() {
                     <Switch location={background || location}>
                         {/* <Route exact path="/" children={<LoginPage />} /> */}
                         <Route exact path="/" children={<LoginPage />} />
+                        <Route path="/sign-in" children={<RegisterPage />} />
                         <Route path="/home" children={<HomePage />} />
                         <Route path="/chat" children={<ChatPage />} />
                     </Switch>

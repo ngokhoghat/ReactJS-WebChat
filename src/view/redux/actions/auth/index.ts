@@ -5,6 +5,9 @@ export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_FALSE = 'LOGIN_FALSE';
 
 
+export const SIGN_UP = 'SIGN_UP';
+export const SIGN_UP_SUCCESS = 'SIGN_UP_SUCCESS';
+export const SIGN_UP_FALSE = 'SIGN_UP_FALSE';
 
 
 export const login = (payload: any): IAction<any> => {
@@ -27,3 +30,25 @@ export const loginFalse = (payload: any): IAction<any> => {
         payload
     }
 }
+
+export const signUp = (payload: any): IAction<any> => {
+    return {
+        type: SIGN_UP,
+        payload
+    }
+}
+
+export const signUpSuccess = (payload: any): IAction<any> => {
+    return {
+        type: SIGN_UP_SUCCESS,
+        payload
+    }
+}
+
+export const signUpFalse = (payload: any): IAction<any> => {
+    return {
+        type: SIGN_UP_FALSE,
+        payload
+    }
+}
+

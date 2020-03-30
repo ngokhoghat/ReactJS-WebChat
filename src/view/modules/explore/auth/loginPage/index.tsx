@@ -2,9 +2,10 @@ import React, { Component } from 'react'
 import { Redirect } from 'react-router';
 import { connect } from 'react-redux';
 
-import './loginPage/login_page.scss'
-import LoginPageFormLogin from './LoginPageFormLogin';
-import LoginPageLoading from './LoginPageLoading';
+import LoginPageFormLogin from './loginPageForm/LoginPageFormLogin';
+import LoginPageLoading from '../../../components/loading/Loading';
+import './style.scss'
+
 interface IProps {
     isAut: any,
     error: any,
@@ -28,9 +29,9 @@ const LoginPage = (props: IProps) => {
 
 const mapStateToProps = (state: any) => {
     return {
-        isAut: state.loginPageReducer.loginReducer.isAut,
-        error: state.loginPageReducer.loginReducer.error,
-        isLoading: state.loginPageReducer.loginReducer.isLoading,
+        isAut: state.authReducers.loginPageReducer.loginReducer.isAut,
+        error: state.authReducers.loginPageReducer.loginReducer.error,
+        isLoading: state.authReducers.loginPageReducer.loginReducer.isLoading,
     }
 }
 

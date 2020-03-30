@@ -14,9 +14,9 @@ let persistor = persistStore(store)
 const App = () => {
 	return (
 		<Provider store={store}>
-			<AppContainer />
-			{/* <PersistGate loading={null} persistor={persistor}>
-			</PersistGate> */}
+			<PersistGate loading={null} persistor={persistor}>
+				<AppContainer />
+			</PersistGate>
 		</Provider>
 	);
 }

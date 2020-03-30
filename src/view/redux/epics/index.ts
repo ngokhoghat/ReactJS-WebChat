@@ -1,14 +1,13 @@
 import { combineEpics } from "redux-observable";
-import { loginEpic } from "./login";
-import { pingEpic } from "./ping";
+
+import { authEpic } from "./auth";
 import { getUserEpics, getUserFriendListEpics } from "./user";
 
 
 
 
 export const rootEpic = combineEpics(
-    loginEpic,
-    pingEpic,
+    authEpic,
     getUserEpics,
     getUserFriendListEpics
 );

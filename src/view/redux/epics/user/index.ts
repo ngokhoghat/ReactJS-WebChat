@@ -44,12 +44,11 @@ export const getUserFriendListEpics = (action$: any, state$: any) => {
                         app.database().ref().child('users').child(item).on('value', snap => {
                             const user = {
                                 id: item,
-                                status: snap.val()
+                                user: snap.val()
                             }
                             obs.next(getUserFriendListSuccess(user))
                         })
                     })
-                    // obs.next(getUserSuccess(doc.data()));
                 }).catch(error => {
                     // obs.next(getUserFaild(error));
                     // obs.complete()
