@@ -1,4 +1,4 @@
-import React, { Component, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Header from './header';
@@ -6,29 +6,31 @@ import FriendList from './friendList';
 import ChatBox from './chatBox';
 import BottomTab from './bottomTab';
 
-import { getUserFriendList } from '../../../redux/actions/user'
+import { getUserFriendList, getMessage } from '../../../redux/actions/user'
 
 import './style.scss';
-
+import firebase from '../../../firebase'
 interface IProp {
-    user: any,
+    data: any,
     getUserFriendList: (params: any) => void
+    getMessage: (params: any) => void
 }
 
-const HomePage = (props: IProp) => {
-    const { user } = props;
-    useEffect(() => {
-        if (user.user && user.user.id) {
-            props.getUserFriendList(user.user.id)
-        }
-    })
-    if (user.user) {
+const HomePage = React.memo((props: IProp) => {
+
+    const { data } = props;
+
+    if (data.user && data.user.id) {
+        useEffect(() => {
+            props.getUserFriendList(data.user.id);
+            props.getMessage(data.user.message_id);
+        }, [])
         return (
             <div id="main-content" className="main-content">
                 <div className="box-content" >
-                    {user.user ? <Header data={user.user} /> : null}
-                    {user.friendList ? <FriendList data={user.friendList} /> : null}
-                    <ChatBox />
+                    {data.user ? <Header data={data.user} /> : null}
+                    {data.friendList ? <FriendList data={data.friendList} /> : null}
+                    {data.oldMessage ? <ChatBox data={data.oldMessage} /> : null}
                     <BottomTab />
                 </div>
             </div>
@@ -36,16 +38,17 @@ const HomePage = (props: IProp) => {
     } else {
         return <div></div>
     }
-}
+})
 
 const mapStateToProps = (state: any) => {
     return {
-        user: state.userReducers.userReducer.data,
+        data: state.userReducers.userReducer.data,
     }
 }
 const mapDispatchToProps = (dispatch: any) => bindActionCreators(
     {
-        getUserFriendList
+        getUserFriendList,
+        getMessage
     },
     dispatch,
 );

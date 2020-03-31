@@ -1,208 +1,65 @@
-import React, { Component } from 'react'
+import React, { useEffect, useState } from 'react'
 
+import { useHistory } from 'react-router-dom'
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
 
 import './style.scss'
-import { Link, Redirect, useHistory } from 'react-router-dom'
+import firebase from '../../../../firebase'
 
-const friendLists = [
-    { img: "https://zicxa.com/hinh-anh/wp-content/uploads/2019/06/T%E1%BB%95ng-h%E1%BB%A3p-nh%E1%BB%AFng-h%C3%ACnh-%E1%BA%A3nh-%C4%91%E1%BA%B9p-v%E1%BB%81-bi%E1%BB%83n-4.jpg" },
-    { img: "https://zicxa.com/hinh-anh/wp-content/uploads/2019/06/T%E1%BB%95ng-h%E1%BB%A3p-nh%E1%BB%AFng-h%C3%ACnh-%E1%BA%A3nh-%C4%91%E1%BA%B9p-v%E1%BB%81-bi%E1%BB%83n-4.jpg" },
-    { img: "https://zicxa.com/hinh-anh/wp-content/uploads/2019/06/T%E1%BB%95ng-h%E1%BB%A3p-nh%E1%BB%AFng-h%C3%ACnh-%E1%BA%A3nh-%C4%91%E1%BA%B9p-v%E1%BB%81-bi%E1%BB%83n-4.jpg" },
-    { img: "https://zicxa.com/hinh-anh/wp-content/uploads/2019/06/T%E1%BB%95ng-h%E1%BB%A3p-nh%E1%BB%AFng-h%C3%ACnh-%E1%BA%A3nh-%C4%91%E1%BA%B9p-v%E1%BB%81-bi%E1%BB%83n-4.jpg" },
-    { img: "https://zicxa.com/hinh-anh/wp-content/uploads/2019/06/T%E1%BB%95ng-h%E1%BB%A3p-nh%E1%BB%AFng-h%C3%ACnh-%E1%BA%A3nh-%C4%91%E1%BA%B9p-v%E1%BB%81-bi%E1%BB%83n-4.jpg" },
-    { img: "https://zicxa.com/hinh-anh/wp-content/uploads/2019/06/T%E1%BB%95ng-h%E1%BB%A3p-nh%E1%BB%AFng-h%C3%ACnh-%E1%BA%A3nh-%C4%91%E1%BA%B9p-v%E1%BB%81-bi%E1%BB%83n-4.jpg" },
-    { img: "https://zicxa.com/hinh-anh/wp-content/uploads/2019/06/T%E1%BB%95ng-h%E1%BB%A3p-nh%E1%BB%AFng-h%C3%ACnh-%E1%BA%A3nh-%C4%91%E1%BA%B9p-v%E1%BB%81-bi%E1%BB%83n-4.jpg" },
-    { img: "https://zicxa.com/hinh-anh/wp-content/uploads/2019/06/T%E1%BB%95ng-h%E1%BB%A3p-nh%E1%BB%AFng-h%C3%ACnh-%E1%BA%A3nh-%C4%91%E1%BA%B9p-v%E1%BB%81-bi%E1%BB%83n-4.jpg" },
-]
-
-export default function ChatBox() {
+const ChatBox = ({ data, user }: any) => {
     let history = useHistory();
+    const [state, setstate]: any = useState({
+        data: []
+    })
+    useEffect(() => {
+        const idUser = data.map((val: any) => val.user_id.filter((v: any, i: any) => v != user.id).toString());
+        firebase.firestore().collection('users').where("id", "in", idUser).get().then(res => {
+            const data: any = [];
+            res.forEach((val) => {
+                data.push(val.data())
+            })
+            setstate({ data })
+        })
+    }, [])
     return (
         <div className="chat-box">
-            <div className="chat-box__element" onClick={() => {
-                history.push("/chat")
-            }}>
-                <div className="chat-box__element--avatar">
-                    <div className="avatar">
-                        <div className="avatar__img">
-                            <img src={"https://hinhanhdep.vn/wp-content/uploads/2019/11/T%E1%BB%95ng-h%E1%BB%A3p-h%C3%ACnh-%E1%BA%A3nh-b%C3%ACnh-minh-s%E1%BB%9Bm-mai-%C4%91%E1%BA%B9p-nh%E1%BA%A5t-47.jpg"} alt="" />
-                            <span><p></p></span>
+            {
+                state.data.length > 0 && data.map((item: any, index: any) => {
+                    return (
+                        <div
+                            className="chat-box__element"
+                            onClick={() => { history.push("/chat", item.id) }}
+                            key={index}
+                        >
+                            <div className="chat-box__element--avatar">
+                                <div className="avatar">
+                                    <div className="avatar__img">
+                                        <img src={item.img != "" ? item.img : state.data[index].img} alt="" />
+                                        <span><p></p></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="chat-box__element--old-message">
+                                <div className="name">{item.name != "" ? item.name : state.data[index].name}</div>
+                                <div className="old-massage">Trung: Hello guy</div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-                <div className="chat-box__element--old-message">
-                    <div className="name">Team Chinh Chiến</div>
-                    <div className="old-massage">Trung: Hello guy</div>
-                </div>
-            </div>
-            <div className="chat-box__element">
-                <div className="chat-box__element--avatar">
-                    <div className="avatar">
-                        <div className="avatar__img">
-                            <img src={"https://hinhanhdep.vn/wp-content/uploads/2019/11/T%E1%BB%95ng-h%E1%BB%A3p-h%C3%ACnh-%E1%BA%A3nh-b%C3%ACnh-minh-s%E1%BB%9Bm-mai-%C4%91%E1%BA%B9p-nh%E1%BA%A5t-47.jpg"} alt="" />
-                            <span><p></p></span>
-                        </div>
-                    </div>
-                </div>
-                <div className="chat-box__element--old-message">
-                    <div className="name">Team Chinh Chiến</div>
-                    <div className="old-massage">Trung: Hello guy</div>
-                </div>
-            </div>
-            <div className="chat-box__element">
-                <div className="chat-box__element--avatar">
-                    <div className="avatar">
-                        <div className="avatar__img">
-                            <img src={"https://hinhanhdep.vn/wp-content/uploads/2019/11/T%E1%BB%95ng-h%E1%BB%A3p-h%C3%ACnh-%E1%BA%A3nh-b%C3%ACnh-minh-s%E1%BB%9Bm-mai-%C4%91%E1%BA%B9p-nh%E1%BA%A5t-47.jpg"} alt="" />
-                            <span><p></p></span>
-                        </div>
-                    </div>
-                </div>
-                <div className="chat-box__element--old-message">
-                    <div className="name">Team Chinh Chiến</div>
-                    <div className="old-massage">Trung: Hello guy</div>
-                </div>
-            </div>
-            <div className="chat-box__element">
-                <div className="chat-box__element--avatar">
-                    <div className="avatar">
-                        <div className="avatar__img">
-                            <img src={"https://hinhanhdep.vn/wp-content/uploads/2019/11/T%E1%BB%95ng-h%E1%BB%A3p-h%C3%ACnh-%E1%BA%A3nh-b%C3%ACnh-minh-s%E1%BB%9Bm-mai-%C4%91%E1%BA%B9p-nh%E1%BA%A5t-47.jpg"} alt="" />
-                            <span><p></p></span>
-                        </div>
-                    </div>
-                </div>
-                <div className="chat-box__element--old-message">
-                    <div className="name">Team Chinh Chiến</div>
-                    <div className="old-massage">Trung: Hello guy</div>
-                </div>
-            </div>
-            <div className="chat-box__element">
-                <div className="chat-box__element--avatar">
-                    <div className="avatar">
-                        <div className="avatar__img">
-                            <img src={"https://hinhanhdep.vn/wp-content/uploads/2019/11/T%E1%BB%95ng-h%E1%BB%A3p-h%C3%ACnh-%E1%BA%A3nh-b%C3%ACnh-minh-s%E1%BB%9Bm-mai-%C4%91%E1%BA%B9p-nh%E1%BA%A5t-47.jpg"} alt="" />
-                            <span><p></p></span>
-                        </div>
-                    </div>
-                </div>
-                <div className="chat-box__element--old-message">
-                    <div className="name">Team Chinh Chiến</div>
-                    <div className="old-massage">Trung: Hello guy</div>
-                </div>
-            </div>
-            <div className="chat-box__element">
-                <div className="chat-box__element--avatar">
-                    <div className="avatar">
-                        <div className="avatar__img">
-                            <img src={"https://hinhanhdep.vn/wp-content/uploads/2019/11/T%E1%BB%95ng-h%E1%BB%A3p-h%C3%ACnh-%E1%BA%A3nh-b%C3%ACnh-minh-s%E1%BB%9Bm-mai-%C4%91%E1%BA%B9p-nh%E1%BA%A5t-47.jpg"} alt="" />
-                            <span><p></p></span>
-                        </div>
-                    </div>
-                </div>
-                <div className="chat-box__element--old-message">
-                    <div className="name">Team Chinh Chiến</div>
-                    <div className="old-massage">Trung: Hello guy</div>
-                </div>
-            </div>
-            <div className="chat-box__element">
-                <div className="chat-box__element--avatar">
-                    <div className="avatar">
-                        <div className="avatar__img">
-                            <img src={"https://hinhanhdep.vn/wp-content/uploads/2019/11/T%E1%BB%95ng-h%E1%BB%A3p-h%C3%ACnh-%E1%BA%A3nh-b%C3%ACnh-minh-s%E1%BB%9Bm-mai-%C4%91%E1%BA%B9p-nh%E1%BA%A5t-47.jpg"} alt="" />
-                            <span><p></p></span>
-                        </div>
-                    </div>
-                </div>
-                <div className="chat-box__element--old-message">
-                    <div className="name">Team Chinh Chiến</div>
-                    <div className="old-massage">Trung: Hello guy</div>
-                </div>
-            </div>
-            <div className="chat-box__element">
-                <div className="chat-box__element--avatar">
-                    <div className="avatar">
-                        <div className="avatar__img">
-                            <img src={"https://hinhanhdep.vn/wp-content/uploads/2019/11/T%E1%BB%95ng-h%E1%BB%A3p-h%C3%ACnh-%E1%BA%A3nh-b%C3%ACnh-minh-s%E1%BB%9Bm-mai-%C4%91%E1%BA%B9p-nh%E1%BA%A5t-47.jpg"} alt="" />
-                            <span><p></p></span>
-                        </div>
-                    </div>
-                </div>
-                <div className="chat-box__element--old-message">
-                    <div className="name">Team Chinh Chiến</div>
-                    <div className="old-massage">Trung: Hello guy</div>
-                </div>
-            </div>
-            <div className="chat-box__element">
-                <div className="chat-box__element--avatar">
-                    <div className="avatar">
-                        <div className="avatar__img">
-                            <img src={"https://hinhanhdep.vn/wp-content/uploads/2019/11/T%E1%BB%95ng-h%E1%BB%A3p-h%C3%ACnh-%E1%BA%A3nh-b%C3%ACnh-minh-s%E1%BB%9Bm-mai-%C4%91%E1%BA%B9p-nh%E1%BA%A5t-47.jpg"} alt="" />
-                            <span><p></p></span>
-                        </div>
-                    </div>
-                </div>
-                <div className="chat-box__element--old-message">
-                    <div className="name">Team Chinh Chiến</div>
-                    <div className="old-massage">Trung: Hello guy</div>
-                </div>
-            </div>
-            <div className="chat-box__element">
-                <div className="chat-box__element--avatar">
-                    <div className="avatar">
-                        <div className="avatar__img">
-                            <img src={"https://hinhanhdep.vn/wp-content/uploads/2019/11/T%E1%BB%95ng-h%E1%BB%A3p-h%C3%ACnh-%E1%BA%A3nh-b%C3%ACnh-minh-s%E1%BB%9Bm-mai-%C4%91%E1%BA%B9p-nh%E1%BA%A5t-47.jpg"} alt="" />
-                            <span><p></p></span>
-                        </div>
-                    </div>
-                </div>
-                <div className="chat-box__element--old-message">
-                    <div className="name">Team Chinh Chiến</div>
-                    <div className="old-massage">Trung: Hello guy</div>
-                </div>
-            </div>
-            <div className="chat-box__element">
-                <div className="chat-box__element--avatar">
-                    <div className="avatar">
-                        <div className="avatar__img">
-                            <img src={"https://hinhanhdep.vn/wp-content/uploads/2019/11/T%E1%BB%95ng-h%E1%BB%A3p-h%C3%ACnh-%E1%BA%A3nh-b%C3%ACnh-minh-s%E1%BB%9Bm-mai-%C4%91%E1%BA%B9p-nh%E1%BA%A5t-47.jpg"} alt="" />
-                            <span><p></p></span>
-                        </div>
-                    </div>
-                </div>
-                <div className="chat-box__element--old-message">
-                    <div className="name">Team Chinh Chiến</div>
-                    <div className="old-massage">Trung: Hello guy</div>
-                </div>
-            </div>
-            <div className="chat-box__element">
-                <div className="chat-box__element--avatar">
-                    <div className="avatar">
-                        <div className="avatar__img">
-                            <img src={"https://hinhanhdep.vn/wp-content/uploads/2019/11/T%E1%BB%95ng-h%E1%BB%A3p-h%C3%ACnh-%E1%BA%A3nh-b%C3%ACnh-minh-s%E1%BB%9Bm-mai-%C4%91%E1%BA%B9p-nh%E1%BA%A5t-47.jpg"} alt="" />
-                            <span><p></p></span>
-                        </div>
-                    </div>
-                </div>
-                <div className="chat-box__element--old-message">
-                    <div className="name">Team Chinh Chiến</div>
-                    <div className="old-massage">Trung: Hello guy</div>
-                </div>
-            </div>
-            <div className="chat-box__element">
-                <div className="chat-box__element--avatar">
-                    <div className="avatar">
-                        <div className="avatar__img">
-                            <img src={"https://hinhanhdep.vn/wp-content/uploads/2019/11/T%E1%BB%95ng-h%E1%BB%A3p-h%C3%ACnh-%E1%BA%A3nh-b%C3%ACnh-minh-s%E1%BB%9Bm-mai-%C4%91%E1%BA%B9p-nh%E1%BA%A5t-47.jpg"} alt="" />
-                            <span><p></p></span>
-                        </div>
-                    </div>
-                </div>
-                <div className="chat-box__element--old-message">
-                    <div className="name">Team Chinh Chiến</div>
-                    <div className="old-massage">Trung: Hello guy</div>
-                </div>
-            </div>
+                    )
+                })
+            }
         </div>
     )
 }
+const mapStateToProps = (state: any) => {
+    return {
+        user: state.userReducers.userReducer.data.user,
+    }
+}
+const mapDispatchToProps = (dispatch: any) => bindActionCreators(
+    {
+    },
+    dispatch,
+);
+
+export default connect(mapStateToProps, mapDispatchToProps)(ChatBox)
