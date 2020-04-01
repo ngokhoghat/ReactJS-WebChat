@@ -10,29 +10,25 @@ interface IProps {
     isAut: any,
     error: any,
     isLoading: any;
+    currentUser: any
 }
 
 
 const RegisterPage = (props: IProps) => {
-
-    const { isAut, error, isLoading } = props;
-    if (isAut == true) {
-        return <Redirect to={{ pathname: "/home" }} />
-    } else {
-        return (
-            <div className="login_page">
-                <RegisterForm />
-                {(isLoading) ? <Loading /> : null}
-            </div>
-        )
-    }
+    const { currentUser, error, isLoading } = props;
+    if (currentUser) { return <Redirect to="/" /> }
+    return (
+        <div className="login_page">
+            <RegisterForm />
+            {(isLoading) ? <Loading /> : null}
+        </div>
+    )
 }
 
 const mapStateToProps = (state: any) => {
     return {
-        isAut: state.authReducers.signUpReducers.signUpReducer.isAut,
-        error: state.authReducers.signUpReducers.signUpReducer.error,
-        isLoading: state.authReducers.signUpReducers.signUpReducer.isLoading,
+        isLoading: state.authReducers.isLoading,
+        currentUser: state.authReducers.currentUser,
     }
 }
 export default connect(mapStateToProps)(RegisterPage)

@@ -14,7 +14,8 @@ import {
     setOnlineSuccess,
     setOnlineFaild,
     GET_MESSAGE,
-    getMessageSuccess
+    getMessageSuccess,
+    getUserFriendListFaild
 } from '../../actions/user';
 
 
@@ -25,14 +26,16 @@ export const getUserEpics = (action$: any, state$: any) => {
         exhaustMap((action: any) => {
             return new Observable((obs) => {
                 const db = app.firestore();
-                db.collection("users").doc(action.payload).get().then((doc) => {
-                    obs.next(getUserSuccess(doc.data()));
-                    obs.complete()
-                }).catch(error => {
+                try {
+                    db.collection("users").where("id", "==", action.payload).onSnapshot(doc => {
+                        const user: any = [];
+                        doc.forEach(res => user.push(res.data()))
+                        obs.next(getUserSuccess(user))
+                    })
+                } catch (error) {
                     obs.next(getUserFaild(error));
                     obs.complete()
-                });
-
+                }
             })
         })
     );
@@ -85,18 +88,16 @@ export const getUserFriendListEpics = (action$: any, state$: any) => {
         exhaustMap((action: any) => {
             return new Observable((obs) => {
                 const db = app.firestore();
-                let friendsList: any = [];
-                db.collection("friends").doc(action.payload).get().then((doc) => {
-                    friendsList = doc.data();
-                    db.collection('users').where("id", "in", friendsList['friend-list']).onSnapshot((res: any) => {
-                        const a: any = [];
-                        res.forEach((doc: any) => {
-                            a.push(doc.data())
-                        })
-                        obs.next(getUserFriendListSuccess(a))
+                db.collection("friends").where("id", "==", action.payload).get().then((doc) => {
+                    let friendsList: any = [];
+                    doc.forEach((item) => { friendsList.push(item.data()) })
+                    db.collection('users').where("id", "in", friendsList[0]['friend-list']).onSnapshot((res: any) => {
+                        friendsList = [];
+                        res.forEach((doc: any) => { friendsList.push(doc.data()) })
+                        obs.next(getUserFriendListSuccess(friendsList))
                     });
                 }).catch(error => {
-                    // obs.next(getUserFaild(error));
+                    obs.next(getUserFriendListFaild(error));
                     obs.complete()
                 });
             })
@@ -112,9 +113,7 @@ export const getMessageEpics = (action$: any, state$: any) => {
                 const db = app.firestore();
                 db.collection("messages").where("id", "in", action.payload).get().then((doc) => {
                     const oldMessage: any = []
-                    doc.forEach(element => {
-                        oldMessage.push(element.data());
-                    });
+                    doc.forEach(element => { oldMessage.push(element.data()) });
                     obs.next(getMessageSuccess(oldMessage))
                     obs.complete();
                 }).catch(error => {

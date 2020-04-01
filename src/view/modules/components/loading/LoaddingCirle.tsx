@@ -1,11 +1,9 @@
 import React, { useState } from 'react'
 import Lottie from 'react-lottie';
 
-import * as animationDatas from '../../../../assets/animation/lottie/196materialwaveloading.json'
-import './style.scss'
+import * as animationDatas from '../../../../assets/animation/lottie/193-material-loading.json'
 
-
-const Loading = () => {
+const LoaddingCirle = () => {
     const [state, setstate] = useState({
         isStopped: false,
         isPaused: false
@@ -20,16 +18,15 @@ const Loading = () => {
         }
     };
     return (
-        <div className="loading-container background">
+        <div className="loading-container">
             <Lottie
                 options={defaultOptions}
-                width={100}
-                height={100}
+                width={50}
+                height={50}
                 isStopped={state.isStopped}
                 isPaused={state.isPaused}
             />
         </div>
     )
 }
-
-export default Loading;
+export default LoaddingCirle;

@@ -63,7 +63,7 @@ const LoginPageFormLogin = (props: IProps) => {
                 </div>
             </div>
             <div className="signin mt-5">
-                <Link to="/sign-in">SIGN IN</Link>
+                <Link to="/signup">SIGN UP</Link>
             </div>
         </form>
     )

@@ -12,7 +12,7 @@ import LoginPage from '../modules/explore/auth/loginPage';
 import SignUpPage from '../modules/explore/auth/registerPage';
 import PrivateRoute from './privateRoute';
 import NotFoundPage from '../modules/explore/404notFoudPage';
-
+import ChatPage from '../modules/explore/chatPage';
 
 export default function ModalSwitch() {
     let location = useLocation();
@@ -27,6 +27,7 @@ export default function ModalSwitch() {
                 >
                     <Switch location={background || location}>
                         <PrivateRoute exact path="/" component={HomePage} />
+                        <PrivateRoute exact path="/chat" component={ChatPage} />
                         <Route exact path="/login" component={LoginPage} />
                         <Route exact path="/signup" component={SignUpPage} />
                         <Route exact path="*" component={NotFoundPage} />

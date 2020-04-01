@@ -6,6 +6,7 @@ import { connect } from 'react-redux'
 
 import './style.scss'
 import firebase from '../../../../firebase'
+import LoaddingComponent from '../../../components/loading/LoaddingComponent'
 
 const ChatBox = ({ data, user }: any) => {
     let history = useHistory();
@@ -13,19 +14,19 @@ const ChatBox = ({ data, user }: any) => {
         data: []
     })
     useEffect(() => {
-        const idUser = data.map((val: any) => val.user_id.filter((v: any, i: any) => v !== user.id).toString());
-        firebase.firestore().collection('users').where("id", "in", idUser).get().then(res => {
-            const data: any = [];
-            res.forEach((val) => {
-                data.push(val.data())
+        const idUser = data ? data.map((val: any) => val.user_id.filter((v: any, i: any) => v !== user[0].id).toString()) : [];
+        if (idUser.length > 0) {
+            firebase.firestore().collection('users').where("id", "in", idUser).get().then(res => {
+                const data: any = [];
+                res.forEach((val) => { data.push(val.data()) })
+                setstate({ data })
             })
-            setstate({ data })
-        })
+        }
     }, [])
     return (
         <div className="chat-box">
             {
-                state.data.length > 0 && data.map((item: any, index: any) => {
+                state.data.length > 0 ? data.map((item: any, index: any) => {
                     return (
                         <div
                             className="chat-box__element"
@@ -46,7 +47,7 @@ const ChatBox = ({ data, user }: any) => {
                             </div>
                         </div>
                     )
-                })
+                }) : <LoaddingComponent />
             }
         </div>
     )

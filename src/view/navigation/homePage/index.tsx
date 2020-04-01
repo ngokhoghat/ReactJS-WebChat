@@ -1,11 +1,16 @@
-import React, { Component } from 'react'
+import React from 'react'
+import { Route, Switch } from 'react-router-dom'
+import HomePage from '../../modules/explore/homePage'
+import ChatPage from '../../modules/explore/chatPage'
 
-export default class HomePageComponents extends Component {
-    render() {
-        return (
+const HomePageComponents = (props: any) => {
+    return (
+        <Route component={({ match }: any) =>
             <div>
-                
+                <Route path='/' component={HomePage} />
+                <Route exact path='chat' component={ChatPage} />
             </div>
-        )
-    }
+        } />
+    )
 }
+export default HomePageComponents

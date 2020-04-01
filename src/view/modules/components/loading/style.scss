@@ -1,18 +1,12 @@
-.loginPage_loading {
+.loading-container {
     display: flex;
     width: 100vw;
     height: 100vh;
     position: absolute;
     justify-content: center;
     align-items: center;
+}
+
+.background {
     background-color: rgba(0, 0, 0, 0.6);
-    &--icon {
-        display: flex;
-        width: 100vw;
-        height: 100vh;
-        position: absolute;
-        justify-content: center;
-        align-items: center;
-        background-color: rgba(0, 0, 0, 0);
-    }
 }
