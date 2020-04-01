@@ -13,18 +13,14 @@ interface IProps {
 }
 
 const LoginPage = (props: IProps) => {
-
     const { isAut, error, isLoading } = props;
-    if (isAut == true) {
-        return <Redirect to={{ pathname: "/home" }} />
-    } else {
-        return (
-            <div className="login_page">
-                <LoginPageFormLogin />
-                {(isLoading) ? <LoginPageLoading /> : null}
-            </div>
-        )
-    }
+    if (isAut) { return <Redirect to="/" /> }
+    return (
+        <div className="login_page">
+            <LoginPageFormLogin />
+            {(isLoading) ? <LoginPageLoading /> : null}
+        </div>
+    )
 }
 
 const mapStateToProps = (state: any) => {

@@ -4,10 +4,9 @@ import { IAction } from "../../../../shared/interfaces/common";
 
 
 const initialState = {
-    isAut: false,
     isLoading: false,
     error: null,
-    user: {}
+    user: null
 }
 
 
@@ -21,7 +20,6 @@ export function loginReducer(state: any = initialState, action: IAction<any>) {
         case LOGIN_SUCCESS:
             return {
                 ...state,
-                isAut: true,
                 isLoading: false,
                 user: action.payload
             };

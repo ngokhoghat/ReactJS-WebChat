@@ -28,8 +28,6 @@ const Loading = () => {
                 isStopped={state.isStopped}
                 isPaused={state.isPaused}
             />
-            <div className="loginPage_loading--icon">
-            </div>
         </div>
     )
 }

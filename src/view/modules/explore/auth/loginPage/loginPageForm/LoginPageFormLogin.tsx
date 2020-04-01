@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 
 import { login } from '../../../../../redux/actions/auth';
+import firebase from '../../../../../firebase'
 // import FaceBookBtn from '../../components/FaceBookBtn';
 // import GoogleBtn from '../../components/GoogleBtn';
 interface IProps {
@@ -54,7 +55,7 @@ const LoginPageFormLogin = (props: IProps) => {
             </div>
             <div className="loginSocial mt-5">
                 <div>
-                    <p className="w-100">Or Sign Up Using</p>
+                    <p className="w-100" onClick={() => { firebase.auth().signOut() }} >Or Sign Up Using</p>
                 </div>
                 <div className="loginSocial__icon">
                     {/* <GoogleBtn />

@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import userImg from '../../../../../assets/image/png/user.png'
 import './style.scss'
 interface Props {
@@ -15,7 +15,7 @@ const FriendList = ({ data }: Props) => {
                             <div className="avatar">
                                 <div className="avatar__img">
                                     <img src={val.img !== "" ? val.img : userImg} alt="" />
-                                    <span><p className={val.status == 0 ? "offline" : ""}></p></span>
+                                    <span><p className={val.status === 0 ? "offline" : ""}></p></span>
                                 </div>
                             </div>
                         </div>

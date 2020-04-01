@@ -28,7 +28,7 @@ const ChatPage = (props: Props) => {
 
 const mapStateToProps = (state: any) => {
     return {
-        user: state.userReducers.userReducer.data.user,
+        // user: state.userReducers.userReducer.data.user,
     }
 }
 const mapDispatchToProps = (dispatch: any) => bindActionCreators(

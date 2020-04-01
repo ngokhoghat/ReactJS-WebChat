@@ -4,19 +4,19 @@ import {
     Route,
     useLocation
 } from "react-router-dom";
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 
 import HomePage from '../modules/explore/homePage';
 import LoginPage from '../modules/explore/auth/loginPage';
-import { CSSTransition, TransitionGroup } from 'react-transition-group';
-import ChatPage from '../modules/explore/chatPage';
-import RegisterPage from '../modules/explore/auth/registerPage';
+import SignUpPage from '../modules/explore/auth/registerPage';
+import PrivateRoute from './privateRoute';
+import NotFoundPage from '../modules/explore/404notFoudPage';
 
 
 export default function ModalSwitch() {
     let location = useLocation();
     let background = location.state && location.state.background;
-
     return (
         <Route render={({ location }) => (
             <TransitionGroup>
@@ -26,11 +26,10 @@ export default function ModalSwitch() {
                     timeout={1000}
                 >
                     <Switch location={background || location}>
-                        {/* <Route exact path="/" children={<LoginPage />} /> */}
-                        <Route exact path="/" children={<LoginPage />} />
-                        <Route path="/sign-in" children={<RegisterPage />} />
-                        <Route path="/home" children={<HomePage />} />
-                        <Route path="/chat" children={<ChatPage />} />
+                        <PrivateRoute exact path="/" component={HomePage} />
+                        <Route exact path="/login" component={LoginPage} />
+                        <Route exact path="/signup" component={SignUpPage} />
+                        <Route exact path="*" component={NotFoundPage} />
                     </Switch>
                 </CSSTransition>
             </TransitionGroup>
