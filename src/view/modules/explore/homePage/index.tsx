@@ -7,7 +7,7 @@ import ChatBox from './chatBox';
 import BottomTab from './bottomTab';
 
 import { getUserFriendList } from '../../../redux/actions/user'
-
+import firebase from '../../../firebase'
 import './style.scss';
 
 interface IProp {
@@ -18,9 +18,12 @@ interface IProp {
 const HomePage = (props: IProp) => {
     const { user } = props;
     useEffect(() => {
-        if (user.user && user.user.id) {
-            props.getUserFriendList(user.user.id)
-        }
+        const db = firebase.firestore();
+        db.collection("users").doc("1ucoVxjDZUaNCYjx5ncSF6oG86Y2")
+            .onSnapshot(function (doc) {
+                console.log("Current data: ", doc.data());
+            });
+
     })
     if (user.user) {
         return (
