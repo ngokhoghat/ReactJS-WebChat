@@ -20,7 +20,6 @@ const RegisterForm = (props: Props) => {
 
     const _handelSubmit = (e: any) => {
         e.preventDefault();
-        console.log(inputValues);
         props.signUp(inputValues)
     }
     const _handelChange = (e: any) => {

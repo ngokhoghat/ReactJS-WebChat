@@ -1,6 +1,6 @@
-import React, { Component } from 'react'
+import React from 'react'
 
-export default function BottomBar() {
+const BottomBar = () => {
     return (
         <div className="chat-page__bottom-bar">
             <div className="chat-page__bottom-bar--social-group">
@@ -15,8 +15,9 @@ export default function BottomBar() {
                 </div>
             </div>
             <div className="chat-page__bottom-bar--like-btn">
-                <i className="fas fa-thumbs-up"></i>
+                <i className="fas fa-thumbs-up" onClick={() => { alert() }}></i>
             </div>
         </div>
     )
 }
+export default BottomBar;

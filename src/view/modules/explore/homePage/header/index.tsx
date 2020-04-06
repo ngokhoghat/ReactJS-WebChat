@@ -12,9 +12,10 @@ interface States {
 }
 
 const Header = ({ data }: Props) => {
-    console.log(data);
-
-    const status = [{ id: 0, name: "online", color: "#49bc58", statusColor: "#49bc58" }, { id: 1, name: "offline", color: "#827e7e", statusColor: "red" }]
+    const status = [
+        { id: 0, name: "online", color: "#49bc58", statusColor: "#49bc58" },
+        { id: 1, name: "offline", color: "#827e7e", statusColor: "red" }
+    ]
     return (
         <div className="header">
             <div className="header__profile">

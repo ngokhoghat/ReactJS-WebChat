@@ -2,10 +2,27 @@
 import { ofType, combineEpics } from 'redux-observable';
 import { Observable } from 'rxjs';
 import { exhaustMap } from 'rxjs/operators';
-import app from '../../../firebase';
+import firebase from '../../../firebase';
 
-import { LOGIN, loginSuccess, loginFalse, SIGN_UP, signUpSuccess, signUpFalse } from '../../actions/auth';
-import { getUser, getUserFriendList } from '../../actions/user';
+import { LOGIN, loginSuccess, loginFalse, SIGN_UP, signUpSuccess, signUpFalse, getCurrentUser, GET_CURRENT_USER, getCurrentUserSuccess, getCurrentUserFaild } from '../../actions/auth';
+import { getUser, getUserFriendList, setOnline } from '../../actions/user';
+
+export const onAuthStateChanged = (action$: any, state$: any) => {
+    return action$.pipe(
+        ofType(GET_CURRENT_USER),
+        exhaustMap((action: any) => {
+            return new Observable((obs) => {
+                try {
+                    firebase.auth().onAuthStateChanged(res => {
+                        obs.next(getCurrentUserSuccess(res))
+                    })
+                } catch (error) {
+                    obs.next(getCurrentUserFaild(error))
+                }
+            })
+        })
+    );
+}
 
 export const loginEpic = (action$: any, state$: any) => {
     return action$.pipe(
@@ -13,10 +30,11 @@ export const loginEpic = (action$: any, state$: any) => {
         exhaustMap((action: any) => {
             return new Observable((obs) => {
                 const { u_name, u_pass } = action.payload;
-                app.auth().signInWithEmailAndPassword(u_name, u_pass)
+                firebase.auth().signInWithEmailAndPassword(u_name, u_pass)
                     .then((res: any) => {
+                        // obs.next(setOnline(res.user.uid));
+                        // obs.next(getUser(res.user.uid));
                         obs.next(loginSuccess(res));
-                        obs.next(getUser(res.user.uid));
                         obs.complete();
                     })
                     .catch(function (error) {
@@ -33,27 +51,23 @@ export const signUpEpic = (action$: any, state$: any) => {
         ofType(SIGN_UP),
         exhaustMap((action: any) => {
             return new Observable((obs) => {
-                const db = app.firestore();
+                const db = firebase.firestore();
                 const { u_name, u_pass, u_mail } = action.payload;
-                app.auth().createUserWithEmailAndPassword(u_mail, u_pass)
+                firebase.auth().createUserWithEmailAndPassword(u_mail, u_pass)
                     .then((result: any) => {
-                        db.collection("users").doc(result.user.uid).set({
+                        db.collection("users").doc().set({
                             name: u_name,
                             email: u_mail,
                             img: null,
                             phone: null,
                             id: result.user.uid
                         }).then(res => {
-                            app.database().ref('users/' + result.user.uid).set({
-                                img: "empty",
-                                name: u_name,
-                                status: 1
-                            }).then(res => {
-                                obs.next(signUpSuccess(res));
-                                obs.next(getUser(result.user.uid));
-                                obs.complete();
-                            })
-                        }).catch();
+                            obs.next(signUpSuccess(res))
+                            obs.complete()
+                        }).catch(error => {
+                            obs.next(signUpFalse(error))
+                            obs.complete();
+                        });
                     })
                     .catch(function (error) {
                         obs.next(signUpFalse(error))
@@ -65,6 +79,7 @@ export const signUpEpic = (action$: any, state$: any) => {
 }
 
 export const authEpic = combineEpics(
+    onAuthStateChanged,
     loginEpic,
     signUpEpic
 )
