@@ -16,9 +16,7 @@ const initialState = {
     isLoading: false,
     error: {},
     currentUser: null,
-    data: {
-        user: null
-    }
+    userID: null
 }
 
 
@@ -46,9 +44,7 @@ export function authReducers(state: any = initialState, action: IAction<any>) {
             return {
                 ...state,
                 isLoading: false,
-                data: {
-                    user: action.payload
-                }
+                userID: action.payload.user.uid
             };
         case LOGIN_FALSE:
             return {
@@ -68,9 +64,7 @@ export function authReducers(state: any = initialState, action: IAction<any>) {
             return {
                 ...state,
                 isLoading: false,
-                data: {
-                    user: action.payload
-                }
+                userID: action.payload.user.uid
             };
         case SIGN_UP_FALSE:
             return {

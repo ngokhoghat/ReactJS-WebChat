@@ -1,12 +1,12 @@
 import { combineEpics } from "redux-observable";
 
 import { authEpic } from "./auth";
-import { userEpics } from "./user";
+import { homePageEpic } from "./explore/homePage";
 
 
 
 
 export const rootEpic = combineEpics(
     authEpic,
-    userEpics,
+    homePageEpic
 );

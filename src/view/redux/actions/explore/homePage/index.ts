@@ -1,4 +1,4 @@
-import { IAction } from "../../../shared/interfaces/common";
+import { IAction } from "../../../../shared/interfaces/common";
 
 export const GET_USER = "GET_USER";
 export const GET_USER_SUCCESS = "GET_USER_SUCCESS";
@@ -16,6 +16,19 @@ export const GET_USER_FRIEND_LIST = "GET_USER_FRIEND_LIST";
 export const GET_USER_FRIEND_LIST_SUCCESS = "GET_USER_FRIEND_LIST_SUCCESS";
 export const GET_USER_FRIEND_LIST_FAILD = "GET_USER_FRIEND_LIST_FAILD";
 
+export const CLEAR_DATA_USER = "CLEAR_DATA_USER"
+export const CANCEL = "CANCEL"
+
+export const clearDataUser = () => {
+    return {
+        type: CLEAR_DATA_USER
+    }
+}
+export const cancel = () => {
+    return {
+        type: CANCEL
+    }
+}
 // Lấy dữ liệu người dùng
 export const getUser = (payload: any): IAction<any> => {
     return {

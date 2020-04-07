@@ -1,10 +1,10 @@
 import { combineReducers } from "redux";
 import { authReducers } from "./auth"
-import { userReducers } from "./user"
+import { homeReducer } from "./explore/homePage"
 
 export const appReducer = combineReducers({
     authReducers,
-    userReducers
+    homeReducer
 });
 
 export const rootReducer = (state: any, action: any) => {

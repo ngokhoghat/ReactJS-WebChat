@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Header from './header';
@@ -6,38 +6,41 @@ import FriendList from './friendList';
 import ChatBox from './chatBox';
 import BottomTab from './bottomTab';
 
-import { getUser, getUserFriendList, getMessage } from '../../../redux/actions/user'
+import { getUser, getUserFriendList, getMessage, cancel } from '../../../redux/actions/explore/homePage'
 import firebase from '../../../firebase'
 import './style.scss';
 import LoaddingCirle from '../../components/loading/LoaddingCirle';
 interface IProp {
-    currentUser: any;
-    userData: any;
+    userID: any;
+    data: any;
     getUser: (params: any) => void;
-    getUserFriendList: (params: any) => void;
+    cancel: (params?: any) => void;
     getMessage: (params: any) => void;
+    getUserFriendList: (params: any) => void;
 }
 
 const HomePage = ((props: IProp) => {
-    const { currentUser, userData } = props;
-
+    const [state, setstate] = useState("room1")
+    const { userID, data } = props;
     useEffect(() => {
-        if (currentUser && currentUser.uid) {
-            props.getUser(currentUser.uid);
-            if (userData && userData.user) {
-                props.getUserFriendList(userData.user[0].id);
-                props.getMessage(userData.user[0].message_id);
-            }
+        props.getUser(userID);
+        if (data.user && data.user.message_id) {
+            props.getMessage(data.user.message_id);
         }
     }, [])
-    if (userData && userData.user) {
+    useEffect(() => {
+        props.getUserFriendList({ userID, state });
+    }, [])
+    if (data.user) {
         return (
             <div id="main-content" className="main-content">
                 <div className="box-content" >
-                    <div onClick={() => { firebase.auth().signOut() }}>Log Out</div>
-                    <Header data={userData.user[0]} />
-                    <FriendList data={userData.friendList} />
-                    <ChatBox data={userData.oldMessage} />
+                    <div onClick={() => { firebase.auth().signOut() }}>Log Out1</div>
+                    <div onClick={() => { props.cancel() }}>Log Out2</div>
+                    <div onClick={() => { props.getUserFriendList({ userID: "1sthaz7a3rbykoUlwNAvQK0wgfr2", state }); }}>Log Out3</div>
+                    <Header data={data.user} />
+                    <FriendList data={data.friendList} />
+                    <ChatBox data={data.message} />
                     <BottomTab />
                 </div>
             </div>
@@ -54,13 +57,14 @@ const HomePage = ((props: IProp) => {
 
 const mapStateToProps = (state: any) => {
     return {
-        currentUser: state.authReducers.currentUser,
-        userData: state.userReducers.userReducer.data
+        userID: state.authReducers.userID,
+        data: state.homeReducer.data
     }
 }
 const mapDispatchToProps = (dispatch: any) => bindActionCreators(
     {
         getUser,
+        cancel,
         getMessage,
         getUserFriendList
     },

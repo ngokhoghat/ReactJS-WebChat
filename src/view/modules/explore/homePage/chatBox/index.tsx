@@ -14,7 +14,7 @@ const ChatBox = ({ data, user }: any) => {
         data: []
     })
     useEffect(() => {
-        const idUser = data ? data.map((val: any) => val.user_id.filter((v: any, i: any) => v !== user[0].id).toString()) : [];
+        const idUser = data ? data.map((val: any) => val.user_id.filter((v: any, i: any) => v !== user.id).toString()) : [];
         if (idUser.length > 0) {
             firebase.firestore().collection('users').where("id", "in", idUser).get().then(res => {
                 const data: any = [];
@@ -54,7 +54,7 @@ const ChatBox = ({ data, user }: any) => {
 }
 const mapStateToProps = (state: any) => {
     return {
-        user: state.userReducers.userReducer.data.user,
+        user: state.homeReducer.data.user,
     }
 }
 const mapDispatchToProps = (dispatch: any) => bindActionCreators(

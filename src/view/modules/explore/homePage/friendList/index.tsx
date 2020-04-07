@@ -9,13 +9,13 @@ const FriendList = ({ data }: Props) => {
     if (data && data.length > 0) {
         return (
             <div className="friend-list">
-                {data[0].map((val: any, index: any) => {
+                {data.map((val: any, index: any) => {
                     return (
                         <div className="friend-list__element" key={index}>
                             <div className="avatar">
                                 <div className="avatar__img">
                                     <img src={val.img !== "" ? val.img : userImg} alt="" />
-                                    <span><p className={val.status === 0 ? "offline" : ""}></p></span>
+                                    <span><p className={val.status ? "" : "offline"}></p></span>
                                 </div>
                             </div>
                         </div>

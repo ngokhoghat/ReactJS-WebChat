@@ -4,8 +4,18 @@ import { Observable } from 'rxjs';
 import { exhaustMap } from 'rxjs/operators';
 import firebase from '../../../firebase';
 
-import { LOGIN, loginSuccess, loginFalse, SIGN_UP, signUpSuccess, signUpFalse, getCurrentUser, GET_CURRENT_USER, getCurrentUserSuccess, getCurrentUserFaild } from '../../actions/auth';
-import { getUser, getUserFriendList, setOnline } from '../../actions/user';
+import {
+    LOGIN,
+    SIGN_UP,
+    GET_CURRENT_USER,
+    loginSuccess,
+    loginFalse,
+    signUpSuccess,
+    signUpFalse,
+    getCurrentUserSuccess,
+    getCurrentUserFaild
+} from '../../actions/auth';
+import { clearDataUser } from '../../actions/explore/homePage';
 
 export const onAuthStateChanged = (action$: any, state$: any) => {
     return action$.pipe(
@@ -32,8 +42,7 @@ export const loginEpic = (action$: any, state$: any) => {
                 const { u_name, u_pass } = action.payload;
                 firebase.auth().signInWithEmailAndPassword(u_name, u_pass)
                     .then((res: any) => {
-                        // obs.next(setOnline(res.user.uid));
-                        // obs.next(getUser(res.user.uid));
+                        obs.next(clearDataUser());
                         obs.next(loginSuccess(res));
                         obs.complete();
                     })
@@ -62,6 +71,7 @@ export const signUpEpic = (action$: any, state$: any) => {
                             phone: null,
                             id: result.user.uid
                         }).then(res => {
+                            obs.next(clearDataUser());
                             obs.next(signUpSuccess(res))
                             obs.complete()
                         }).catch(error => {
