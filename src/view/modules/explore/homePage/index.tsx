@@ -20,24 +20,16 @@ interface IProp {
 }
 
 const HomePage = ((props: IProp) => {
-    const [state, setstate] = useState("room1")
     const { userID, data } = props;
     useEffect(() => {
         props.getUser(userID);
-        if (data.user && data.user.message_id) {
-            props.getMessage(data.user.message_id);
-        }
     }, [])
-    useEffect(() => {
-        props.getUserFriendList({ userID, state });
-    }, [])
+
     if (data.user) {
         return (
             <div id="main-content" className="main-content">
                 <div className="box-content" >
-                    <div onClick={() => { firebase.auth().signOut() }}>Log Out1</div>
-                    <div onClick={() => { props.cancel() }}>Log Out2</div>
-                    <div onClick={() => { props.getUserFriendList({ userID: "1sthaz7a3rbykoUlwNAvQK0wgfr2", state }); }}>Log Out3</div>
+                    <div onClick={() => { firebase.auth().signOut() }}>Log Out</div>
                     <Header data={data.user} />
                     <FriendList data={data.friendList} />
                     <ChatBox data={data.message} />

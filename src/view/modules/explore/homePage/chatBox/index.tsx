@@ -5,28 +5,15 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
 import './style.scss'
-import firebase from '../../../../firebase'
 import LoaddingComponent from '../../../components/loading/LoaddingComponent'
 
-const ChatBox = ({ data, user }: any) => {
+const ChatBox = ({ data, useId }: any) => {
     let history = useHistory();
-    const [state, setstate]: any = useState({
-        data: []
-    })
-    useEffect(() => {
-        const idUser = data ? data.map((val: any) => val.user_id.filter((v: any, i: any) => v !== user.id).toString()) : [];
-        if (idUser.length > 0) {
-            firebase.firestore().collection('users').where("id", "in", idUser).get().then(res => {
-                const data: any = [];
-                res.forEach((val) => { data.push(val.data()) })
-                setstate({ data })
-            })
-        }
-    }, [])
     return (
         <div className="chat-box">
             {
-                state.data.length > 0 ? data.map((item: any, index: any) => {
+                data.length > 0 ? data.map((item: any, index: any) => {
+                    let userImg = item.user_id.filter((val: any) => val.id != useId);
                     return (
                         <div
                             className="chat-box__element"
@@ -36,13 +23,13 @@ const ChatBox = ({ data, user }: any) => {
                             <div className="chat-box__element--avatar">
                                 <div className="avatar">
                                     <div className="avatar__img">
-                                        <img src={item.img !== "" ? item.img : state.data[index].img} alt="" />
+                                        <img src={item.img == "" ? userImg[0].img : item.img} alt="" />
                                         <span><p></p></span>
                                     </div>
                                 </div>
                             </div>
                             <div className="chat-box__element--old-message">
-                                <div className="name">{item.name !== "" ? item.name : state.data[index].name}</div>
+                                <div className="name">{item.name !== "" ? item.name : ""}</div>
                                 <div className="old-massage">Trung: Hello guy</div>
                             </div>
                         </div>
@@ -54,7 +41,7 @@ const ChatBox = ({ data, user }: any) => {
 }
 const mapStateToProps = (state: any) => {
     return {
-        user: state.homeReducer.data.user,
+        useId: state.authReducers.userID,
     }
 }
 const mapDispatchToProps = (dispatch: any) => bindActionCreators(
