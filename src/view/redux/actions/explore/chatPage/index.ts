@@ -1,8 +1,8 @@
 import { IAction } from "../../../../shared/interfaces/common";
 
-export const GET_USER = "GET_USER";
-export const GET_USER_SUCCESS = "GET_USER_SUCCESS";
-export const GET_USER_FAILD = "GET_USER_FAILD";
+export const GET_MESSAGE_BY_ID = "GET_MESSAGE_BY_ID";
+export const GET_MESSAGE_BY_ID_SUCCESS = "GET_MESSAGE_BY_ID_SUCCESS";
+export const GET_MESSAGE_BY_ID_FAILD = "GET_MESSAGE_BY_ID_FAILD";
 
 export const SET_ONLINE = "SET_ONLINE";
 export const SET_ONLINE_SUCCESS = "SET_ONLINE_SUCCESS";
@@ -29,24 +29,24 @@ export const cancel = () => {
         type: CANCEL
     }
 }
-// Lấy dữ liệu người dùng
-export const getUser = (payload: any): IAction<any> => {
+// Lấy dữ liệu tin nhắn
+export const getMessageById = (payload: any): IAction<any> => {
     return {
-        type: GET_USER,
+        type: GET_MESSAGE_BY_ID,
         payload
     }
 }
 
-export const getUserSuccess = (payload: any): IAction<any> => {
+export const getMessageByIdSuccess = (payload: any): IAction<any> => {
     return {
-        type: GET_USER_SUCCESS,
+        type: GET_MESSAGE_BY_ID_SUCCESS,
         payload
     }
 }
 
-export const getUserFaild = (payload: any): IAction<any> => {
+export const getMessageByIdFaild = (payload: any): IAction<any> => {
     return {
-        type: GET_USER_FAILD,
+        type: GET_MESSAGE_BY_ID_FAILD,
         payload
     }
 }
