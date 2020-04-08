@@ -25,7 +25,8 @@ export function authReducers(state: any = initialState, action: IAction<any>) {
         case GET_CURRENT_USER_SUCCESS:
             return {
                 ...state,
-                currentUser: action.payload
+                currentUser: action.payload,
+                userID: action.payload && action.payload.user && action.payload.user.uid ? action.payload.user.uid : null
             };
         case GET_CURRENT_USER_FAILD:
             return {
@@ -44,6 +45,7 @@ export function authReducers(state: any = initialState, action: IAction<any>) {
             return {
                 ...state,
                 isLoading: false,
+                error: {},
                 userID: action.payload.user.uid
             };
         case LOGIN_FALSE:
@@ -64,7 +66,8 @@ export function authReducers(state: any = initialState, action: IAction<any>) {
             return {
                 ...state,
                 isLoading: false,
-                userID: action.payload.user.uid
+                error: {},
+                userID: action.payload
             };
         case SIGN_UP_FALSE:
             return {

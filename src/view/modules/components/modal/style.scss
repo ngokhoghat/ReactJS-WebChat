@@ -1,0 +1,45 @@
+.modal-error {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    position: absolute;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    background-color: rgba(0, 0, 0, 0.3);
+    justify-content: center;
+    align-items: center;
+    &__content {
+        width: 80%;
+        height: 100px;
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 1px 5px 0;
+        position: relative;
+        &--title {
+            font-size: 20px;
+            text-transform: capitalize;
+            font-weight: bold;
+        }
+        &--content {
+            font-size: 16px;
+        }
+        p {
+            text-align: center;
+        }
+        .close-btn {
+            width: 25px;
+            height: 25px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background-color: #fff;
+            border-radius: 99px;
+            border: 1px solid #dddd;
+            box-shadow: 0 1px 3px 0;
+        }
+    }
+}

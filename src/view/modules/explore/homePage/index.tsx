@@ -11,7 +11,6 @@ import firebase from '../../../firebase'
 import './style.scss';
 import LoaddingCirle from '../../components/loading/LoaddingCirle';
 interface IProp {
-    userID: any;
     data: any;
     getUser: (params: any) => void;
     cancel: (params?: any) => void;
@@ -20,11 +19,7 @@ interface IProp {
 }
 
 const HomePage = ((props: IProp) => {
-    const { userID, data } = props;
-    useEffect(() => {
-        props.getUser(userID);
-    }, [])
-
+    const { data } = props;
     if (data.user) {
         return (
             <div id="main-content" className="main-content">
@@ -49,7 +44,6 @@ const HomePage = ((props: IProp) => {
 
 const mapStateToProps = (state: any) => {
     return {
-        userID: state.authReducers.userID,
         data: state.homeReducer.data
     }
 }

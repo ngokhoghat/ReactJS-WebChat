@@ -1,10 +1,10 @@
-import React, { useState, Props } from 'react'
+import React, { useState } from 'react'
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 
 import { login } from '../../../../../redux/actions/auth';
-import firebase from '../../../../../firebase'
+import ModalError from '../../../../components/modal/ModalError';
 // import FaceBookBtn from '../../components/FaceBookBtn';
 // import GoogleBtn from '../../components/GoogleBtn';
 interface IProps {
@@ -40,12 +40,12 @@ const LoginPageFormLogin = (props: IProps) => {
         <form onSubmit={_handelSubmit} className="login-page-form">
             <h3 className="login-page-form__title">Login</h3>
             <div className="form-group mt-5">
-                <label htmlFor="">Usename</label>
-                <input onChange={_handelChange} name="u_name" value={state.u_name} className="form-control" />
+                <label htmlFor="">Email</label>
+                <input onChange={_handelChange} name="u_name" value={state.u_name} className="form-control" type="email" required />
             </div>
             <div className="form-group">
                 <label htmlFor="">Password</label>
-                <input onChange={_handelChange} name="u_pass" value={state.u_pass} className="form-control" type="password" />
+                <input onChange={_handelChange} name="u_pass" value={state.u_pass} className="form-control" type="password" required />
             </div>
             <div className="form-group text-right">
                 <Link className="forgotPassword" to="/">Forgot password?</Link>
@@ -55,7 +55,7 @@ const LoginPageFormLogin = (props: IProps) => {
             </div>
             <div className="loginSocial mt-5">
                 <div>
-                    <p className="w-100" onClick={() => { firebase.auth().signOut() }} >Or Sign Up Using</p>
+                    <p className="w-100" >Or Sign Up Using</p>
                 </div>
                 <div className="loginSocial__icon">
                     {/* <GoogleBtn />
@@ -65,6 +65,7 @@ const LoginPageFormLogin = (props: IProps) => {
             <div className="signin mt-5">
                 <Link to="/signup">SIGN UP</Link>
             </div>
+            <ModalError />
         </form>
     )
 }

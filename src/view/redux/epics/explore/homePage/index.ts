@@ -1,6 +1,6 @@
 import { ofType, combineEpics } from 'redux-observable';
 import { Observable, of } from 'rxjs';
-import { exhaustMap, switchMap } from 'rxjs/operators';
+import { exhaustMap, switchMap, delay, debounceTime } from 'rxjs/operators';
 
 import firebase from '../../../../firebase'
 import {
@@ -17,7 +17,10 @@ import {
     setOnlineSuccess,
     setOnlineFaild,
     getMessage,
-    getUserFriendList
+    getUserFriendList,
+    SEARCH,
+    searchSuccess,
+    searchFaild
 } from '../../../actions/explore/homePage';
 
 export const getUserEpic = (action$: any, state$: any) => {
@@ -33,7 +36,7 @@ export const getUserEpic = (action$: any, state$: any) => {
                         doc.forEach(res => user.push(res.data()))
                         obs.next(getUserSuccess(user[0]));
                         obs.next(getUserFriendList(user[0].id))
-                        obs.next(getMessage(user[0].message_id))
+                        obs.next(getMessage(user[0].roomChats))
                         obs.complete()
                     }).catch(error => {
                         obs.next(getUserFaild(error));
@@ -54,8 +57,8 @@ export const getUserFriendListEpics = (action$: any, state$: any) => {
                 db.collection("friends").where("id", "==", action.payload).get()
                     .then((doc) => {
                         let friendsList: any = [];
-                        doc.forEach((item) => { friendsList.push(item.data()) })
-                        db.collection('users').where("id", "in", friendsList[0]['friend-list']).onSnapshot((res: any) => {
+                        doc.forEach((item) => { friendsList.push(item.data()) });
+                        db.collection('users').where("id", "in", friendsList[0].friendList).onSnapshot((res: any) => {
                             friendsList = [];
                             res.forEach((doc: any) => { friendsList.push(doc.data()) })
                             obs.next(getUserFriendListSuccess(friendsList))
@@ -75,15 +78,20 @@ export const getMessageEpics = (action$: any, state$: any) => {
         exhaustMap((action: any) => {
             return new Observable((obs) => {
                 const db = firebase.firestore();
-                db.collection("messages").where("id", "in", action.payload).get().then((doc) => {
-                    const oldMessage: any = [];
-                    doc.forEach(element => { oldMessage.push(element.data()) });
-                    obs.next(getMessageSuccess(oldMessage))
-                    obs.complete();
-                }).catch(error => {
+                try {
+                    db.collection("messages").where("id", "in", action.payload).get().then((doc) => {
+                        const oldMessage: any = [];
+                        doc.forEach(element => { oldMessage.push(element.data()) });
+                        obs.next(getMessageSuccess(oldMessage))
+                        obs.complete();
+                    }).catch(error => {
+                        obs.next(getMessageFaild(error));
+                        obs.complete()
+                    });
+                } catch (error) {
                     obs.next(getMessageFaild(error));
                     obs.complete()
-                });
+                }
             })
         })
     );
@@ -102,6 +110,32 @@ export const setOnlineEpic = (action$: any, state$: any) => {
                     })
                     .catch(error => {
                         obs.next(setOnlineFaild({}))
+                        obs.complete()
+                    })
+            })
+        })
+    );
+}
+
+export const searchEpic = (action$: any, state$: any) => {
+    return action$.pipe(
+        ofType(SEARCH),
+        debounceTime(1000),
+        exhaustMap((action: any) => {
+            return new Observable((obs) => {
+                const db = firebase.firestore();
+                db.collection("users").orderBy('displayName').startAt(action.payload).endAt(action.payload + '\uf8ff').get()
+                    .then(res => {
+                        res.forEach(doc => {
+
+                            console.log(doc.data());
+                        })
+
+                        // obs.next(searchSuccess(res))
+                        obs.complete()
+                    })
+                    .catch(error => {
+                        obs.next(searchFaild(error))
                         obs.complete()
                     })
             })
@@ -134,5 +168,6 @@ export const setOnlineEpic = (action$: any, state$: any) => {
 export const homePageEpic = combineEpics(
     getUserEpic,
     getUserFriendListEpics,
-    getMessageEpics
+    getMessageEpics,
+    searchEpic
 )

@@ -37,7 +37,8 @@ const ChatPage = (props: any) => {
         setstate({ ...state, [name]: value });
     }
     const messagesEndRef: any = useRef(null);
-    const scrollToBottom = () => { messagesEndRef.current.scrollIntoView({ behavior: "smooth" }) }
+    const scrollToBottom = () => { messagesEndRef && messagesEndRef.current ? messagesEndRef.current.scrollIntoView({ behavior: "smooth" }) : console.log();
+     }
     useEffect(scrollToBottom, [props])
     useEffect(() => {
         props.getMessageById(props.location.state)

@@ -4,6 +4,10 @@ export const GET_USER = "GET_USER";
 export const GET_USER_SUCCESS = "GET_USER_SUCCESS";
 export const GET_USER_FAILD = "GET_USER_FAILD";
 
+export const SEARCH = "SEARCH";
+export const SEARCH_SUCCESS = "SEARCH_SUCCESS";
+export const SEARCH_FAILD = "SEARCH_FAILD";
+
 export const SET_ONLINE = "SET_ONLINE";
 export const SET_ONLINE_SUCCESS = "SET_ONLINE_SUCCESS";
 export const SET_ONLINE_FAILD = "SET_ONLINE_FAILD";
@@ -47,6 +51,27 @@ export const getUserSuccess = (payload: any): IAction<any> => {
 export const getUserFaild = (payload: any): IAction<any> => {
     return {
         type: GET_USER_FAILD,
+        payload
+    }
+}
+// Lấy dữ liệu người dùng
+export const search = (payload: any): IAction<any> => {
+    return {
+        type: SEARCH,
+        payload
+    }
+}
+
+export const searchSuccess = (payload: any): IAction<any> => {
+    return {
+        type: SEARCH_SUCCESS,
+        payload
+    }
+}
+
+export const searchFaild = (payload: any): IAction<any> => {
+    return {
+        type: SEARCH_FAILD,
         payload
     }
 }

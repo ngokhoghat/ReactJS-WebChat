@@ -15,7 +15,8 @@ import {
     getCurrentUserSuccess,
     getCurrentUserFaild
 } from '../../actions/auth';
-import { clearDataUser } from '../../actions/explore/homePage';
+import { clearDataUser, getUser } from '../../actions/explore/homePage';
+import { User } from '../../model/auth';
 
 export const onAuthStateChanged = (action$: any, state$: any) => {
     return action$.pipe(
@@ -23,8 +24,11 @@ export const onAuthStateChanged = (action$: any, state$: any) => {
         exhaustMap((action: any) => {
             return new Observable((obs) => {
                 try {
-                    firebase.auth().onAuthStateChanged(res => {
-                        obs.next(getCurrentUserSuccess(res))
+                    firebase.auth().onAuthStateChanged((res: any) => {
+                        obs.next(getCurrentUserSuccess(res));
+                        if (res) {
+                            obs.next(getUser(res.uid));
+                        }
                     })
                 } catch (error) {
                     obs.next(getCurrentUserFaild(error))
@@ -44,6 +48,7 @@ export const loginEpic = (action$: any, state$: any) => {
                     .then((res: any) => {
                         obs.next(clearDataUser());
                         obs.next(loginSuccess(res));
+                        obs.next(getUser(res.user.uid));
                         obs.complete();
                     })
                     .catch(function (error) {
@@ -61,19 +66,32 @@ export const signUpEpic = (action$: any, state$: any) => {
         exhaustMap((action: any) => {
             return new Observable((obs) => {
                 const db = firebase.firestore();
-                const { u_name, u_pass, u_mail } = action.payload;
-                firebase.auth().createUserWithEmailAndPassword(u_mail, u_pass)
+                const { u_FirstName, u_Lastname, u_Email, u_Password } = action.payload;
+                firebase.auth().createUserWithEmailAndPassword(u_Email, u_Password)
                     .then((result: any) => {
                         db.collection("users").doc().set({
-                            name: u_name,
-                            email: u_mail,
-                            img: null,
-                            phone: null,
-                            id: result.user.uid
+                            displayName: u_Lastname,
+                            id: result.user.uid,
+                            onlineStatus: true,
+                            roomChats: [],
+                            userInfor: {
+                                email: u_Email,
+                                image: "",
+                                name: `${u_FirstName} ${u_Lastname}`,
+                                phone: ""
+                            }
                         }).then(res => {
-                            obs.next(clearDataUser());
-                            obs.next(signUpSuccess(res))
-                            obs.complete()
+                            db.collection("friends").doc().set({
+                                id: result.user.uid,
+                                friendList: []
+                            }).then(() => {
+                                obs.next(clearDataUser());
+                                obs.next(signUpSuccess(result.user.uid));
+                                obs.complete()
+                            }).catch(error => {
+                                obs.next(signUpFalse(error))
+                                obs.complete();
+                            });
                         }).catch(error => {
                             obs.next(signUpFalse(error))
                             obs.complete();

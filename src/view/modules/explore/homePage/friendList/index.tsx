@@ -14,8 +14,8 @@ const FriendList = ({ data }: Props) => {
                         <div className="friend-list__element" key={index}>
                             <div className="avatar">
                                 <div className="avatar__img">
-                                    <img src={val.img !== "" ? val.img : userImg} alt="" />
-                                    <span><p className={val.status ? "" : "offline"}></p></span>
+                                    <img src={val.userInfor.image !== "" ? val.userInfor.image : userImg} alt="" />
+                                    <span><p className={val.onlineStatus ? "" : "offline"}></p></span>
                                 </div>
                             </div>
                         </div>
